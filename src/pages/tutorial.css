@@ -1,0 +1,20 @@
+main {
+    max-width: 50em;
+    margin-inline: auto;
+    padding: 1em;
+}
+
+section {
+    margin-block: 1em;
+}
+
+section > canvas {
+    width: 100%;
+    aspect-ratio: 0.75;
+}
+
+@media screen and (min-width : 600px) {
+    section > canvas {
+        aspect-ratio: 1.4;
+    }
+}

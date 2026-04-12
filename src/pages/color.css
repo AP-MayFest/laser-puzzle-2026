@@ -1,0 +1,31 @@
+main {
+    max-width: 50em;
+    margin-inline: auto;
+    padding: 1em;
+}
+
+.color-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8em, 1fr));
+    gap: 1em;
+    align-items: end;
+}
+
+.color-controls label {
+    display: grid;
+    gap: 0.5em;
+}
+
+.color-controls input {
+    width: 100%;
+    height: 2.5em;
+}
+
+.color-controls button {
+    min-height: 2.5em;
+}
+
+#preview-wrapper {
+    width: 100%;
+    aspect-ratio: 1;
+}

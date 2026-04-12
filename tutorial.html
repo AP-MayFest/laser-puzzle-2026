@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/common.css" />
+    <title>レーザーパズル チュートリアル</title>
+</head>
+<body>
+<main>
+    <h1>チュートリアル</h1>
+    <p>
+        手を動かしながらレーザーパズルのルールを覚えましょう．
+    </p>
+    <section>
+        <h2 id="core-concept">基本</h2>
+        <p>
+            レーザーパズルは，レーザーの光をターゲットにあてるパズルです．
+            光の向きを変えるにはミラーを用います．
+        </p>
+        <canvas id="canvas-core-concept"></canvas>
+        <p>
+            ターゲットに光があたるようにミラーを配置しましょう．
+        </p>
+    </section>
+    <section id="color-distinction">
+        <h2>色の区別</h2>
+        <p>
+            ターゲットにはそれに対応する色の光をあてなければなりません．
+        </p>
+        <canvas id="canvas-color-distinction"></canvas>
+        <p>
+            両面ミラーを使ってみましょう．
+            クリック／タップで素子を回転させることができます．
+        </p>
+    </section>
+    <section id="dichroic-mirror">
+        <h2>DM</h2>
+        <p>
+            Dichroic Mirror(DM)は，緑色の光を反射し赤色の光を透過する光学素子です．
+        </p>
+        <canvas id="canvas-dichroic-mirror"></canvas>
+        <p>
+            <a href="/2026/laser-puzzle/color.html">緑色と赤色を識別しやすくする</a>ことができます．
+        </p>
+    </section>
+    <section id="polarity">
+        <h2>偏光</h2>
+        <p>
+            光は横波なので振動の向きがあります．これを偏光といいます．
+            本パズルでは，水平方向の振動をP偏光，鉛直方向の振動をS偏光といいます．ただし，水平においたボードを見ているものとします．
+            レーザーから出力される光には両方の向きの偏光が含まれています．
+        </p>
+        <p>
+            偏光板という光学素子は，特定の向きに偏光を射影します．
+            右下に書いてある文字は透過する偏光の向きを表します．
+            ﾅﾅﾒ偏光板は，P偏光とS偏光の間の方向に射影します．
+        </p>
+        <canvas id="canvas-polarity"></canvas>
+    </section>
+    <section id="pbs">
+        <h2>PBS</h2>
+        <p>
+            Polarizing Beam Splitter(PBS)は，S偏光を反射しP偏光を透過する光学素子です．
+        </p>
+        <canvas id="canvas-pbs"></canvas>
+    </section>
+    <dialog id="complete-dialog" closedby="any">
+        <p>
+            チュートリアルはこれで完了です．実際に問題を解いてみましょう．
+        </p>
+    </dialog>
+</main>
+<script type="module" src="/src/pages/tutorial.ts"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "laser-puzzle",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "wrangler dev"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.1",
+    "wrangler": "^4.81.1"
+  }
+}

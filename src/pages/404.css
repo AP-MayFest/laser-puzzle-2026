@@ -1,0 +1,11 @@
+main {
+    max-width: 50em;
+    margin: 0 auto;
+    padding-inline: 1em;
+}
+
+canvas#status {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2;
+}

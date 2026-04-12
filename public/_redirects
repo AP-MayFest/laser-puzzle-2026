@@ -1,0 +1,3 @@
+/2026/laser-puzzle /2026/laser-puzzle/index.html
+/2026/laser-puzzle/ /2026/laser-puzzle/index.html
+/2026/laser-puzzle/* /:splat 200

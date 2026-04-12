@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/common.css" />
+    <title>レーザー色の調整</title>
+</head>
+<body>
+<main>
+    <h1>レーザー色の調整</h1>
+    <section>
+        <div id="preview-wrapper">
+            <canvas id="preview" class="puzzle-canvas"></canvas>
+        </div>
+        <div class="color-controls">
+            <label>
+                <span>赤色レーザー光</span>
+                <input id="laser-color-red" type="color">
+            </label>
+            <label>
+                <span>緑色レーザー光</span>
+                <input id="laser-color-green" type="color">
+            </label>
+            <button id="reset-laser-colors" type="button">初期値に戻す</button>
+        </div>
+    </section>
+</main>
+<script type="module" src="/src/pages/color.ts"></script>
+</body>
+</html>
