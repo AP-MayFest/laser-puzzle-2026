@@ -10,6 +10,7 @@ export type ReservableComponentDescriptor =
     | { kind: 'polarizing-beam-splitter'; }
     | { kind: 'target'; color: Color; }
     | { kind: 'laser'; color: Color; }
+    | { kind: 'obstacle'; }
     ;
 
 export type ReserveCount = Partial<{
@@ -17,6 +18,7 @@ export type ReserveCount = Partial<{
     laserG: number;
     targetR: number;
     targetG: number;
+    obstacle: number;
     mirror: number;
     doubleSidedMirror: number;
     dichroicMirror: number;
@@ -35,6 +37,7 @@ const descToKey = (descriptor: ReservableComponentDescriptor): keyof ReserveCoun
         if (descriptor.color === 'R') return 'targetR';
         if (descriptor.color === 'G') return 'targetG';
     }
+    if (descriptor.kind === 'obstacle') return 'obstacle';
     if (descriptor.kind === 'mirror') return 'mirror';
     if (descriptor.kind === 'double-sided-mirror') return 'doubleSidedMirror';
     if (descriptor.kind === 'dichroic-mirror') return 'dichroicMirror';
@@ -102,6 +105,7 @@ export class Reserve {
             const column: { descriptor: ReservableComponentDescriptor; count: number; }[] = [];
             if (count.laserR != null) column.push({ descriptor: { kind: 'laser', color: 'R' }, count: count.laserR });
             if (count.laserG != null) column.push({ descriptor: { kind: 'laser', color: 'G' }, count: count.laserG });
+            if (count.obstacle != null) column.push({ descriptor: { kind: 'obstacle' }, count: count.obstacle });
             if (column.length !== 0) columns.push(column);
         }
 
@@ -143,5 +147,6 @@ const regularize = (descriptor: ReservableComponentDescriptor): ComponentDescrip
         case "polarizing-beam-splitter": return { ...descriptor, direction: 'NW' };
         case "target": return { ...descriptor, direction: 'W' };
         case "laser": return { ...descriptor, direction: 'E' };
+        case "obstacle": return { kind: 'obstacle' };
     }
 }

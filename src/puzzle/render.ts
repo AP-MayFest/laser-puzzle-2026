@@ -3,7 +3,7 @@ import {
   DichroicMirror,
   DoubleSidedMirror,
   Laser,
-  Mirror,
+  Mirror, Obstacle,
   Polarizer,
   PolarizingBeamSplitter,
   Target,
@@ -217,6 +217,7 @@ export class Renderer {
     if (component instanceof Laser) this.drawLaser(component);
     else if (component instanceof Target) this.drawTarget(component);
     else if (component instanceof Mirror) this.drawMirror(component);
+    else if (component instanceof Obstacle) this.drawObstacle();
     else if (component instanceof DoubleSidedMirror) this.drawDoubleSidedMirror(component);
     else if (component instanceof Polarizer) this.drawPolarizer(component);
     else if (component instanceof DichroicMirror) this.drawDichroicMirror(component);
@@ -273,6 +274,16 @@ export class Renderer {
     ctx.strokeRect(0, -0.5, 0.5, 1);
 
     ctx.restore()
+  }
+
+  drawObstacle() {
+    const ctx = this.canvas.context;
+    ctx.save();
+
+    ctx.fillStyle = this.colorpalette.accent;
+    ctx.fillRect(-0.5, -0.5, 1, 1);
+
+    ctx.restore();
   }
 
   drawMirror(mirror: Mirror) {

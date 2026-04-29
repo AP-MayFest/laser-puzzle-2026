@@ -48,6 +48,7 @@ const EDITOR_RESERVE: ReserveCount = {
     targetG: Infinity,
     laserR: Infinity,
     laserG: Infinity,
+    obstacle: Infinity,
 };
 
 let runtime: Runtime | undefined;

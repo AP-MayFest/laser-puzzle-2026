@@ -67,6 +67,7 @@ function encodeDescriptor(descriptor: ComponentDescriptor): string {
         case 'dichroic-mirror': return 'e' + descriptor.direction;
         case 'polarizer': return 'f' + descriptor.polarity + descriptor.direction;
         case 'polarizing-beam-splitter': return 'g' + descriptor.direction;
+        case 'obstacle': return 'h';
     }
 }
 
@@ -79,6 +80,7 @@ function decodeDescriptor(code: string): ComponentDescriptor {
         case 'e': return { kind: 'dichroic-mirror', direction: assertingDiagonalDirection(code.slice(1, 3)) };
         case 'g': return { kind: 'polarizing-beam-splitter', direction: assertingDiagonalDirection(code.slice(1, 3)) };
         case 'f': return { kind: 'polarizer', direction: assertingCardinalDirection(code.charAt(2)), polarity: assertingPolarity(code.charAt(1)) };
+        case 'h': return { kind: 'obstacle' };
     }
     throw new Error(`unknown code of ComponentDescriptor: ${code}`);
 }
@@ -100,6 +102,7 @@ function encodeReserveCount(reserveCount: ReserveCount): string {
     if (reserveCount.polarizerS != null) add('fS', reserveCount.polarizerS);
     if (reserveCount.polarizerD != null) add('fD', reserveCount.polarizerD);
     if (reserveCount.pbs != null) add('g', reserveCount.pbs);
+    if (reserveCount.obstacle != null) add('h', reserveCount.obstacle);
 
     return codes.join('')
 }
@@ -124,6 +127,7 @@ function decodeReserveCount(code: string): ReserveCount {
         else if (code === 'fS') reverseCount.polarizerS = count;
         else if (code === 'fD') reverseCount.polarizerD = count;
         else if (code === 'g' ) reverseCount.pbs = count;
+        else if (code === 'h' ) reverseCount.obstacle = count;
         else throw new Error('unknown code of ReserveCount');
     }
 

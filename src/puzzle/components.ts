@@ -22,14 +22,14 @@ export interface Collision {
 }
 
 export interface Occupancy {
-  positions: Vec2[];
+  positions: readonly Vec2[];
 }
 
 export interface Component {
   redirects(collisions: Collision[]): Ray[];
   rotate(basis: NormalizedVec2): void;
-  hits: Segment[];
-  occupancy: Occupancy;
+  readonly hits: readonly Segment[];
+  readonly occupancy: Occupancy;
 }
 
 export class Laser implements Component {
@@ -118,6 +118,24 @@ export class Target implements Component {
 
   get occupancy(): Occupancy {
     return { positions: [new Vec2(0, 0)] };
+  }
+}
+
+export class Obstacle implements Component {
+  readonly hits: readonly Segment[] = pathToSegment([
+    new Vec2(-0.5, -0.5),
+    new Vec2(0.5, -0.5),
+    new Vec2(0.5, 0.5),
+    new Vec2(-0.5, 0.5),
+  ]);
+
+  readonly occupancy: Occupancy = { positions: [new Vec2(0, 0)] };
+
+  redirects(_: Collision[]): Ray[] {
+    return [];
+  }
+
+  rotate(_: NormalizedVec2) {
   }
 }
 
