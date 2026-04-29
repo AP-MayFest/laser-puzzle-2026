@@ -90,9 +90,21 @@ export class Target implements Component {
   }
 
   redirects(collisions: Collision[]): Ray[] {
-    const front = collisions.filter(c => c.at.inner(this.direction) > 0.49);
-    this.lit = this.waveLengthList.every(waveLength => front.some(c => c.ray.waveLength === waveLength));
-
+    const counts = this.waveLengthList.map(() => 0);
+    for (const { ray: { waveLength } } of collisions.filter(c => c.at.inner(this.direction) > 0.49)) {
+      let flag = false;
+      for (const [i, wl] of this.waveLengthList.entries()) {
+        if (waveLength === wl) {
+          flag = true;
+          counts[i] += 1
+        }
+      }
+      if (!flag) {
+        this.lit = false;
+        return [];
+      }
+    }
+    this.lit = counts.every(count => count > 0);
     return [];
   }
 
@@ -227,18 +239,19 @@ export class Polarizer implements Component {
   }
 
   get hits(): Segment[] {
-    const [c1, c2, c3, c4, c5, c6] = [
-      new Vec2(-0.5, -0.5),
-      new Vec2(0.5, -0.5),
-      new Vec2(0.5, 0.5),
-      new Vec2(-0.5, 0.5),
+    // const [c1, c2, c3, c4, c5, c6] = [
+    const [c5, c6] = [
+      // new Vec2(-0.5, -0.5),
+      // new Vec2(0.5, -0.5),
+      // new Vec2(0.5, 0.5),
+      // new Vec2(-0.5, 0.5),
       new Vec2(0, -0.5),
       new Vec2(0, 0.5)
     ].map(v => v.rotateWith(this.direction));
 
     return [
-      { p1: c1, p2: c2 },
-      { p1: c3, p2: c4 },
+      // { p1: c1, p2: c2 },
+      // { p1: c3, p2: c4 },
       { p1: c5, p2: c6 },
     ]
   }
