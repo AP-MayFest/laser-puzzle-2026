@@ -46,6 +46,7 @@ const EDITOR_RESERVE: ReserveCount = {
     pbs: Infinity,
     targetR: Infinity,
     targetG: Infinity,
+    targetRG: Infinity,
     laserR: Infinity,
     laserG: Infinity,
     obstacle: Infinity,

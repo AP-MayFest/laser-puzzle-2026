@@ -6,7 +6,7 @@ import {
   Mirror, Obstacle,
   Polarizer,
   PolarizingBeamSplitter,
-  Target,
+  Target, type WaveLength,
 } from './components.ts'
 import type {RayPath} from './board.ts'
 import {NormalizedVec2, Vec2} from "../utils/vec.ts"
@@ -256,17 +256,47 @@ export class Renderer {
 
   drawTarget(target: Target) {
     const lineWidth = 0.5 ** 3;
-    const { direction, waveLength, lit } = target;
+    const { direction, waveLengthList, lit } = target;
 
     const ctx = this.canvas.context;
     ctx.save()
-    ctx.strokeStyle = ctx.fillStyle = waveLength === '650' ? this.colorpalette.red : this.colorpalette.green;
     ctx.transform(direction.x, direction.y, -direction.y, direction.x, 0, 0);
 
-    if (lit) ctx.fillRect(0, -0.5, 0.5, 1);
-    else {
-      ctx.lineWidth = lineWidth;
-      ctx.strokeRect(lineWidth / 2, -0.5 + lineWidth/2, 0.5 - lineWidth, 1 - lineWidth);
+    let l1: WaveLength, l2: WaveLength;
+    if (waveLengthList.length === 1) l1 = l2 = waveLengthList[0];
+    else [l1, l2] = waveLengthList;
+    if (target.direction.x === 0) [l1, l2] = [l2, l1];
+
+    {
+      ctx.strokeStyle = ctx.fillStyle = l1 === '650' ? this.colorpalette.red : this.colorpalette.green;
+      ctx.lineCap = 'butt';
+
+      if (lit) ctx.fillRect(0, 0, 0.5, 0.5);
+      else {
+        ctx.lineWidth = lineWidth;
+        ctx.beginPath();
+        ctx.moveTo(lineWidth / 2, 0);
+        ctx.lineTo(lineWidth / 2, 0.5 - lineWidth / 2);
+        ctx.lineTo(0.5 - lineWidth / 2, 0.5 - lineWidth / 2);
+        ctx.lineTo(0.5 - lineWidth / 2, 0);
+        ctx.stroke();
+      }
+    }
+
+    {
+      ctx.strokeStyle = ctx.fillStyle = l2 === '650' ? this.colorpalette.red : this.colorpalette.green;
+      ctx.lineCap = 'butt';
+
+      if (lit) ctx.fillRect(0, -0.5, 0.5, 0.5);
+      else {
+        ctx.lineWidth = lineWidth;
+        ctx.beginPath();
+        ctx.moveTo(lineWidth / 2, 0);
+        ctx.lineTo(lineWidth / 2, -0.5 + lineWidth / 2);
+        ctx.lineTo(0.5 - lineWidth / 2, -0.5 + lineWidth / 2);
+        ctx.lineTo(0.5 - lineWidth / 2, 0);
+        ctx.stroke();
+      }
     }
 
     ctx.lineWidth = 0.5 ** 6;

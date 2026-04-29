@@ -61,7 +61,7 @@ export function decodeProblem(code: string): DecodeResult {
 function encodeDescriptor(descriptor: ComponentDescriptor): string {
     switch (descriptor.kind) {
         case 'laser': return 'a' + descriptor.color + descriptor.direction;
-        case 'target': return 'b' + descriptor.color + descriptor.direction;
+        case 'target': return 'b' + descriptor.colors.join('') + descriptor.direction;
         case 'mirror': return 'c' + descriptor.direction;
         case 'double-sided-mirror': return 'd' + descriptor.direction;
         case 'dichroic-mirror': return 'e' + descriptor.direction;
@@ -72,9 +72,19 @@ function encodeDescriptor(descriptor: ComponentDescriptor): string {
 }
 
 function decodeDescriptor(code: string): ComponentDescriptor {
+    function decodeTargetCode(): ComponentDescriptor & { kind: 'target' } {
+        const c1 = assertingColor(code.charAt(1));
+        try {
+            const c2 = assertingColor(code.charAt(2));
+            return { kind: 'target', direction: assertingCardinalDirection(code.charAt(3)), colors: c1 == c2 ? [c1] : [c1, c2] };
+        } catch (_) {
+            return { kind: 'target', direction: assertingCardinalDirection(code.charAt(2)), colors: [c1] };
+        }
+    }
+
     switch (code.charAt(0)) {
         case 'a': return { kind: 'laser', direction: assertingCardinalDirection(code.charAt(2)), color: assertingColor(code.charAt(1)) };
-        case 'b': return { kind: 'target', direction: assertingCardinalDirection(code.charAt(2)), color: assertingColor(code.charAt(1)) };
+        case 'b': return decodeTargetCode();
         case 'c': return { kind: 'mirror', direction: assertingDiagonalDirection(code.slice(1, 3)) };
         case 'd': return { kind: 'double-sided-mirror', direction: assertingDiagonalDirection(code.slice(1, 3)) };
         case 'e': return { kind: 'dichroic-mirror', direction: assertingDiagonalDirection(code.slice(1, 3)) };

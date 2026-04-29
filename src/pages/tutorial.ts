@@ -16,7 +16,7 @@ new Runtime(
     'canvas-core-concept',
     { width: 5, height: 5, placements: [
             { position: new Vec2(1, 3), descriptor: { kind: 'laser', color: 'R', direction: 'E' } },
-            { position: new Vec2(3, 0), descriptor: { kind: 'target', color: 'R', direction: 'S' } },
+            { position: new Vec2(3, 0), descriptor: { kind: 'target', colors: ['R'], direction: 'S' } },
     ] },
     { mirror: 1 },
     scrollTo('color-distinction'),
@@ -28,8 +28,8 @@ new Runtime(
     { width: 5, height: 5, placements: [
             { position: new Vec2(1, 3), descriptor: { kind: 'laser', color: 'R', direction: 'E' } },
             { position: new Vec2(3, 1), descriptor: { kind: 'laser', color: 'G', direction: 'S' } },
-            { position: new Vec2(3, 6), descriptor: { kind: 'target', color: 'R', direction: 'N' } },
-            { position: new Vec2(6, 3), descriptor: { kind: 'target', color: 'G', direction: 'W' } },
+            { position: new Vec2(3, 6), descriptor: { kind: 'target', colors: ['R'], direction: 'N' } },
+            { position: new Vec2(6, 3), descriptor: { kind: 'target', colors: ['G'], direction: 'W' } },
         ] },
     { doubleSidedMirror: 1 },
     scrollTo('dichroic-mirror'),
@@ -40,8 +40,8 @@ new Runtime(
     { width: 7, height: 7, placements: [
         { position: new Vec2(1, 4), descriptor: { kind: 'laser', color: 'R', direction: 'E' } },
         { position: new Vec2(3, 7), descriptor: { kind: 'laser', color: 'G', direction: 'N' } },
-        { position: new Vec2(8, 4), descriptor: { kind: 'target', color: 'R', direction: 'W' } },
-        { position: new Vec2(5, 0), descriptor: { kind: 'target', color: 'G', direction: 'S' } },
+        { position: new Vec2(8, 4), descriptor: { kind: 'target', colors: ['R'], direction: 'W' } },
+        { position: new Vec2(5, 0), descriptor: { kind: 'target', colors: ['G'], direction: 'S' } },
         { position: new Vec2(5, 4), descriptor: { kind: 'dichroic-mirror', direction: 'NW' } },
     ]},
     { dichroicMirror: 1 },
@@ -67,7 +67,7 @@ new Runtime(
             { position: new Vec2(2, 6), descriptor: { kind: 'laser', color: 'G', direction: 'E' } },
             { position: new Vec2(3, 6), descriptor: { kind: 'polarizer', polarity: 'S', direction: 'E' } },
             { position: new Vec2(7, 6), descriptor: { kind: 'polarizer', polarity: 'P', direction: 'E' } },
-            { position: new Vec2(8, 6), descriptor: { kind: 'target', color: 'G', direction: 'W' } },
+            { position: new Vec2(8, 6), descriptor: { kind: 'target', colors: ['G'], direction: 'W' } },
         ]},
     { polarizerD: 1 },
     scrollTo('pbs'),
@@ -78,9 +78,9 @@ new Runtime(
     { width: 5, height: 5, placements: [
             { position: new Vec2(1, 3), descriptor: { kind: 'laser', color: 'R', direction: 'E' } },
 
-            { position: new Vec2(3, 0), descriptor: { kind: 'target', color: 'R', direction: 'S' } },
+            { position: new Vec2(3, 0), descriptor: { kind: 'target', colors: ['R'], direction: 'S' } },
             { position: new Vec2(3, 1), descriptor: { kind: 'polarizer', polarity: 'S', direction: 'S' } },
-            { position: new Vec2(6, 3), descriptor: { kind: 'target', color: 'R', direction: 'W' } },
+            { position: new Vec2(6, 3), descriptor: { kind: 'target', colors: ['R'], direction: 'W' } },
             { position: new Vec2(5, 3), descriptor: { kind: 'polarizer', polarity: 'P', direction: 'W' } },
         ]},
     { pbs: 1 },

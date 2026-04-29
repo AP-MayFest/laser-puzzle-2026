@@ -80,17 +80,19 @@ export class Laser implements Component {
 
 export class Target implements Component {
   direction: NormalizedVec2;
-  waveLength: WaveLength;
+  waveLengthList: [WaveLength] | [WaveLength, WaveLength];
   lit: boolean;
 
-  constructor(direction: NormalizedVec2, waveLength: WaveLength) {
+  constructor(direction: NormalizedVec2, waveLengthList: [WaveLength] | [WaveLength, WaveLength]) {
     this.direction = direction;
-    this.waveLength = waveLength;
+    this.waveLengthList = waveLengthList;
     this.lit = false;
   }
 
   redirects(collisions: Collision[]): Ray[] {
-    this.lit = collisions.some(({ ray, at }) => ray.waveLength === this.waveLength && at.inner(this.direction) > 0.49);
+    const front = collisions.filter(c => c.at.inner(this.direction) > 0.49);
+    this.lit = this.waveLengthList.every(waveLength => front.some(c => c.ray.waveLength === waveLength));
+
     return [];
   }
 
@@ -211,11 +213,13 @@ export class Polarizer implements Component {
   }
 
   redirects(collisions: Collision[]): Ray[] {
-    return collisions.map(({ ray, at }) => ({
-      ...ray,
-      origin: at,
-      polarity: ray.polarity.projectTo(this.polarity)
-    }));
+    return collisions
+      .filter(c => Math.abs(c.at.outer(this.direction)) < 0.5)
+      .map(({ ray, at }) => ({
+        ...ray,
+        origin: at,
+        polarity: ray.polarity.projectTo(this.polarity)
+      }));
   }
 
   rotate(basis: NormalizedVec2) {
@@ -223,10 +227,20 @@ export class Polarizer implements Component {
   }
 
   get hits(): Segment[] {
-    return [{
-      p1: new Vec2(0, -0.5).rotateWith(this.direction),
-      p2: new Vec2(0, +0.5).rotateWith(this.direction),
-    }]
+    const [c1, c2, c3, c4, c5, c6] = [
+      new Vec2(-0.5, -0.5),
+      new Vec2(0.5, -0.5),
+      new Vec2(0.5, 0.5),
+      new Vec2(-0.5, 0.5),
+      new Vec2(0, -0.5),
+      new Vec2(0, 0.5)
+    ].map(v => v.rotateWith(this.direction));
+
+    return [
+      { p1: c1, p2: c2 },
+      { p1: c3, p2: c4 },
+      { p1: c5, p2: c6 },
+    ]
   }
 
   get occupancy(): Occupancy {

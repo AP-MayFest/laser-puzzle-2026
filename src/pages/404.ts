@@ -37,8 +37,8 @@ new Runtime(
             { position: new Vec2(15,5), movable: true, descriptor: { kind: "laser", direction: "N", color: "R" } },
             { position: new Vec2( 7,6), movable: true, descriptor: { kind: "double-sided-mirror", direction: "NE" } },
             { position: new Vec2(10,6), movable: true, descriptor: { kind: "double-sided-mirror", direction: "NW" }},
-            { position: new Vec2(4,7), movable: true, descriptor: { kind: "target", direction: "N", color: "R" } },
-            { position: new Vec2(17,4), movable: true, descriptor: { kind: "target", direction: "W", color: "R" } },
+            { position: new Vec2( 4,7), movable: true, descriptor: { kind: "target", direction: "N", colors: ["R"] } },
+            { position: new Vec2(17,4), movable: true, descriptor: { kind: "target", direction: "W", colors: ["R"] } },
         ]
     },
     {},

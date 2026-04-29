@@ -8,7 +8,7 @@ export type ReservableComponentDescriptor =
     | { kind: 'dichroic-mirror'; }
     | { kind: 'polarizer'; polarity: Polarity; }
     | { kind: 'polarizing-beam-splitter'; }
-    | { kind: 'target'; color: Color; }
+    | { kind: 'target'; colors: [Color] | [Color, Color]; }
     | { kind: 'laser'; color: Color; }
     | { kind: 'obstacle'; }
     ;
@@ -18,6 +18,7 @@ export type ReserveCount = Partial<{
     laserG: number;
     targetR: number;
     targetG: number;
+    targetRG: number;
     obstacle: number;
     mirror: number;
     doubleSidedMirror: number;
@@ -34,8 +35,9 @@ const descToKey = (descriptor: ReservableComponentDescriptor): keyof ReserveCoun
         if (descriptor.color === 'G') return 'laserG';
     }
     if (descriptor.kind === 'target') {
-        if (descriptor.color === 'R') return 'targetR';
-        if (descriptor.color === 'G') return 'targetG';
+        if (descriptor.colors.length === 1 && descriptor.colors[0] === 'R') return 'targetR';
+        if (descriptor.colors.length === 1 && descriptor.colors[0] === 'G') return 'targetG';
+        if (descriptor.colors.length === 2) return 'targetRG';
     }
     if (descriptor.kind === 'obstacle') return 'obstacle';
     if (descriptor.kind === 'mirror') return 'mirror';
@@ -97,8 +99,9 @@ export class Reserve {
         }
         {
             const column: { descriptor: ReservableComponentDescriptor; count: number; }[] = [];
-            if (count.targetR != null) column.push({ descriptor: { kind: 'target', color: 'R' }, count: count.targetR });
-            if (count.targetG != null) column.push({ descriptor: { kind: 'target', color: 'G' }, count: count.targetG });
+            if (count.targetR != null) column.push({ descriptor: { kind: 'target', colors: ['R'] }, count: count.targetR });
+            if (count.targetG != null) column.push({ descriptor: { kind: 'target', colors: ['G'] }, count: count.targetG });
+            if (count.targetRG != null) column.push({ descriptor: { kind: 'target', colors: ['R', 'G'] }, count: count.targetRG });
             if (column.length !== 0) columns.push(column);
         }
         {

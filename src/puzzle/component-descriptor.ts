@@ -103,7 +103,7 @@ export const assertingColor = (color: unknown): Color => {
 export type ComponentKind = ComponentDescriptor['kind'];
 export type ComponentDescriptor =
     | { kind: 'laser'; direction: CardinalDirection; color: Color; }
-    | { kind: 'target'; direction: CardinalDirection; color: Color; }
+    | { kind: 'target'; direction: CardinalDirection; colors: [Color] | [Color, Color]; }
     | { kind: 'obstacle'; }
     | { kind: 'mirror'; direction: DiagonalDirection; }
     | { kind: 'double-sided-mirror'; direction: DiagonalDirection; }
@@ -115,7 +115,7 @@ export type ComponentDescriptor =
 export const createComponent = (descriptor: ComponentDescriptor): Component => {
     switch (descriptor.kind) {
         case 'laser': return new Laser(decodeCardinalDirection(descriptor.direction), colorToWaveLength(descriptor.color));
-        case 'target': return new Target(decodeCardinalDirection(descriptor.direction), colorToWaveLength(descriptor.color));
+        case 'target': return new Target(decodeCardinalDirection(descriptor.direction), descriptor.colors.map(colorToWaveLength) as any);
         case 'obstacle': return new Obstacle();
         case "mirror": return new Mirror(decodeDiagonalDirection(descriptor.direction));
         case "double-sided-mirror": return new DoubleSidedMirror(decodeDiagonalDirection(descriptor.direction));
@@ -127,7 +127,7 @@ export const createComponent = (descriptor: ComponentDescriptor): Component => {
 
 export const describeComponent = (component: Component): ComponentDescriptor => {
     if (component instanceof Laser) return { kind: 'laser', direction: encodeCardinalDirection(component.direction), color: waveLengthToColor(component.waveLength) };
-    if (component instanceof Target) return { kind: 'target', direction: encodeCardinalDirection(component.direction), color: waveLengthToColor(component.waveLength) };
+    if (component instanceof Target) return { kind: 'target', direction: encodeCardinalDirection(component.direction), colors: component.waveLengthList.map(waveLengthToColor) as any};
     if (component instanceof Obstacle) return { kind: 'obstacle' };
     if (component instanceof Mirror) return { kind: 'mirror', direction: encodeDiagonalDirection(component.dsm.direction) };
     if (component instanceof DoubleSidedMirror) return { kind: 'double-sided-mirror', direction: encodeDiagonalDirection(component.direction) };
