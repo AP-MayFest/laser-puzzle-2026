@@ -56,7 +56,7 @@ let runtime: Runtime | undefined;
 
 function resizeRuntime(width: number, height: number) {
     if (runtime == null) {
-        runtime = new Runtime('canvas-edit', { width, height, placements: [] }, EDITOR_RESERVE, () => {});
+        runtime = new Runtime('canvas-edit', { board: { width, height, placements: [] }, reserve: EDITOR_RESERVE }, () => {});
     } else {
         runtime.dispose();
         const layout = runtime.board.calcLayout();
@@ -67,7 +67,7 @@ function resizeRuntime(width: number, height: number) {
                 movable: true,
             };
         });
-        runtime = new Runtime('canvas-edit', { width, height, placements }, EDITOR_RESERVE, () => {});
+        runtime = new Runtime('canvas-edit', { board: { width, height, placements }, reserve: EDITOR_RESERVE }, () => {});
     }
     runtime.start();
 }

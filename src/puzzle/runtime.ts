@@ -1,13 +1,15 @@
-import {Board, type BoardInit} from "./board.ts";
+import {Board} from "./board.ts";
 import {Renderer} from "./render.ts";
 import {Canvas} from "../utils/canvas.ts";
-import {type ReservableComponentDescriptor, Reserve, type ReserveCount} from "./reserve.ts";
+import {type ReservableComponentDescriptor, Reserve} from "./reserve.ts";
 import {InteractionController} from "./interaction.ts";
 import {NormalizedVec2, type Vec2} from "../utils/vec.ts";
 import {type ComponentDescriptor, createComponent} from "./component-descriptor.ts";
 import {calcLayout, cellOnBoard, type DragLayout, type Layout, positioning} from "./layout.ts";
+import type {Problem} from "./problem.ts";
 
 export class Runtime {
+  problem: Problem;
   canvas: Canvas;
   board: Board;
   reserve: Reserve;
@@ -21,14 +23,15 @@ export class Runtime {
   #running = false;
   #frameId: number | null = null;
 
-  constructor(canvasId: string, boardInit: BoardInit, reserveCount: ReserveCount, onSolve: () => void) {
+  constructor(canvasId: string, problem: Problem, onSolve: () => void) {
     const canvas = new Canvas(canvasId);
-    const board = new Board(boardInit);
-    const reserve = new Reserve(reserveCount);
+    const board = new Board(problem.board);
+    const reserve = new Reserve(problem.reserve);
     const layout = calcLayout(canvas, board, reserve, []);
     const renderer = new Renderer(canvas);
     canvas.onresize = () => this.renderer.render(this.layout);
 
+    this.problem = problem;
     this.canvas = canvas;
     this.board = board;
     this.reserve = reserve;
@@ -120,13 +123,18 @@ export class Runtime {
         this.dispatch({ kind: 'turn-in', pointerId: operation.pointerId });
       }
       return true;
+    } else if (operation.kind === 'reset') {
+      this.board = new Board(this.problem.board);
+      this.reserve = new Reserve(this.problem.reserve);
+
+      return true;
     } else {
       throw new Error('unknown operation');
     }
   }
 }
 
-type Operation = RotateOperation | TakeOperation | RemoveOperation | AllocateOperation | TurnInOperation;
+type Operation = RotateOperation | TakeOperation | RemoveOperation | AllocateOperation | TurnInOperation | ResetOperation;
 
 interface RotateOperation {
   kind: "rotate";
@@ -155,4 +163,8 @@ interface AllocateOperation {
 interface TurnInOperation {
   kind: "turn-in";
   pointerId: number;
+}
+
+interface ResetOperation {
+  kind: "reset";
 }

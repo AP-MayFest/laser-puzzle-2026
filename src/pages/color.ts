@@ -38,7 +38,8 @@ resetButton.addEventListener('click', () => {
 
 new Runtime(
     'preview',
-    { width: 7, height: 5, placements: [
+    {
+        board: { width: 7, height: 5, placements: [
             { position: new Vec2(1, 3), descriptor: { kind: 'laser', color: 'R', direction: 'E' } },
             { position: new Vec2(3, 5), descriptor: { kind: 'laser', color: 'G', direction: 'N' } },
             { position: new Vec2(3, 3), descriptor: { kind: 'dichroic-mirror', direction: 'NW' } },
@@ -47,6 +48,7 @@ new Runtime(
             { position: new Vec2(7, 3), descriptor: { kind: 'mirror', direction: 'NW' } },
             { position: new Vec2(7, 1), descriptor: { kind: 'mirror', direction: 'SW' } },
         ] },
-    {},
+        reserve: {},
+    },
     () => {},
 ).start();

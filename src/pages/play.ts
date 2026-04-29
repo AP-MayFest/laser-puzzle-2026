@@ -45,11 +45,9 @@ const problemCode = params.get('p');
 if (problemCode != null) {
     const problemDecodeResult = decodeProblem(problemCode);
     if (problemDecodeResult.kind === 'ok') {
-        const { board, reserve } = problemDecodeResult.problem;
-
         let startAt: number;
         const dialog = new ResultDialog();
-        const runtime = new Runtime('puzzle-view', board, reserve, () => {
+        const runtime = new Runtime('puzzle-view', problemDecodeResult.problem, () => {
             const timeMs = Date.now() - startAt;
             const time = Math.floor(timeMs / 1000);
             dialog.showResult(time);
