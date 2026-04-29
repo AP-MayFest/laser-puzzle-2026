@@ -463,9 +463,9 @@ const fontFamily = `'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'BIZ UDPGothic
 function drawLabel(ctx: CanvasRenderingContext2D, text: string, color: string, x: number) {
   ctx.save();
   ctx.translate(x, 0.45);
-  ctx.scale(0.25, 0.25);
+  ctx.scale(1/64, 1/64);
 
-  ctx.font = '1px' + fontFamily;
+  ctx.font = '16px' + fontFamily;
   ctx.fillStyle = color;
   ctx.textAlign = "center";
   ctx.textBaseline = "bottom";
@@ -477,9 +477,9 @@ function drawLabel(ctx: CanvasRenderingContext2D, text: string, color: string, x
 function drawCount(ctx: CanvasRenderingContext2D, count: number, color: string) {
   ctx.save();
   ctx.translate(0.75, 0.5);
-  ctx.scale(0.4, 0.4);
+  ctx.scale(1/40, 1/40);
 
-  ctx.font = '1px' + fontFamily;
+  ctx.font = '16px' + fontFamily;
   ctx.fillStyle = color;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
