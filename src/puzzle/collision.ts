@@ -1,4 +1,4 @@
-import type {Vec2} from "../utils/vec.ts";
+import type {Vec2} from '../utils/vec.ts';
 
 export interface Segment {
     p1: Vec2;

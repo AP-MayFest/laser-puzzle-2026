@@ -1,6 +1,6 @@
-import {type Color, type ComponentDescriptor, createComponent, type Polarity} from "./component-descriptor.ts";
-import type {Orientation, ReserveLayout} from "./layout.ts";
-import {Vec2} from "../utils/vec.ts";
+import {type Color, type ComponentDescriptor, createComponent, type Polarity} from './component-descriptor.ts';
+import type {Orientation, ReserveLayout} from './layout.ts';
+import {Vec2} from '../utils/vec.ts';
 
 export type ReservableComponentDescriptor =
     | { kind: 'mirror'; }
@@ -10,9 +10,7 @@ export type ReservableComponentDescriptor =
     | { kind: 'polarizing-beam-splitter'; }
     | { kind: 'target'; colors: [Color] | [Color, Color]; }
     | { kind: 'laser'; color: Color; }
-    | { kind: 'obstacle'; }
-    ;
-
+    | { kind: 'obstacle'; };
 export type ReserveCount = Partial<{
     laserR: number;
     laserG: number;
@@ -48,10 +46,10 @@ const descToKey = (descriptor: ReservableComponentDescriptor): keyof ReserveCoun
         if (descriptor.polarity === 'P') return 'polarizerP';
         if (descriptor.polarity === 'D') return 'polarizerD';
     }
-    if (descriptor.kind === 'polarizing-beam-splitter') return 'pbs'
+    if (descriptor.kind === 'polarizing-beam-splitter') return 'pbs';
 
     throw new Error('unknown reservable component descriptor');
-}
+};
 
 export class Reserve {
     count: ReserveCount;
@@ -136,20 +134,20 @@ export class Reserve {
                         col.map(({ count, descriptor }, j) => ({ position: new Vec2(j * 2, i * 1.5), component: createComponent(regularize(descriptor)), count }))
                     ),
                 },
-            }
+            };
         }
     }
 }
 
 const regularize = (descriptor: ReservableComponentDescriptor): ComponentDescriptor => {
     switch (descriptor.kind) {
-        case "mirror": return { ...descriptor, direction: 'NW' };
-        case "double-sided-mirror": return { ...descriptor, direction: 'NW' };
-        case "dichroic-mirror": return { ...descriptor, direction: 'NW' };
-        case "polarizer": return { ...descriptor, direction: 'E' };
-        case "polarizing-beam-splitter": return { ...descriptor, direction: 'NW' };
-        case "target": return { ...descriptor, direction: 'W' };
-        case "laser": return { ...descriptor, direction: 'E' };
-        case "obstacle": return { kind: 'obstacle' };
+        case 'mirror': return { ...descriptor, direction: 'NW' };
+        case 'double-sided-mirror': return { ...descriptor, direction: 'NW' };
+        case 'dichroic-mirror': return { ...descriptor, direction: 'NW' };
+        case 'polarizer': return { ...descriptor, direction: 'E' };
+        case 'polarizing-beam-splitter': return { ...descriptor, direction: 'NW' };
+        case 'target': return { ...descriptor, direction: 'W' };
+        case 'laser': return { ...descriptor, direction: 'E' };
+        case 'obstacle': return { kind: 'obstacle' };
     }
-}
+};

@@ -3,11 +3,11 @@ import {
   type Component,
   type Ray,
   type Collision,
-} from './components.ts'
-import { createComponent, type ComponentDescriptor, describeComponent } from './component-descriptor.ts'
-import {NormalizedVec2, Vec2} from "../utils/vec.ts";
-import type {BoardLayout} from "./layout.ts";
-import {judgeCollision, pathToSegment, type Segment} from "./collision.ts";
+} from './components.ts';
+import { createComponent, type ComponentDescriptor, describeComponent } from './component-descriptor.ts';
+import {NormalizedVec2, Vec2} from '../utils/vec.ts';
+import type {BoardLayout} from './layout.ts';
+import {judgeCollision, pathToSegment, type Segment} from './collision.ts';
 
 export interface Placement {
   position: Vec2;
@@ -56,9 +56,9 @@ export class Board {
 
     for (const placement of placements) {
       const {position, descriptor, movable} = placement;
-      const component = createComponent(descriptor)
+      const component = createComponent(descriptor);
       const condition = this.checkAllocation(position, component);
-      if (condition === 'vacant') this.cells.push({position, component, movable: movable || false, incoming: []});
+      if (condition === 'vacant') this.cells.push({position, component, movable: movable ?? false, incoming: []});
     }
   }
 
@@ -110,13 +110,13 @@ export class Board {
   reset() {
     this.lastModified = Date.now();
     this.cells = this.cells.filter(cell => !cell.movable);
-    this.cells.forEach(cell => { cell.incoming = []; })
+    this.cells.forEach(cell => { cell.incoming = []; });
     this.rays = [];
   }
 
   rotate(position: Vec2, basis: NormalizedVec2) {
     const cell = this.selectCell(position);
-    if (cell == null || !cell.movable) return false;
+    if (!cell?.movable) return false;
     this.lastModified = Date.now();
     cell.component.rotate(basis);
     cell.incoming = [];
@@ -131,7 +131,7 @@ export class Board {
   }
 
   allocate(position: Vec2, descriptor: ComponentDescriptor): ComponentDescriptor[] | boolean {
-    const component = createComponent(descriptor)
+    const component = createComponent(descriptor);
     const condition = this.checkAllocation(position, component);
     if (condition === 'out of bounds' || condition === 'occupied by immovable') return false;
 
@@ -195,6 +195,6 @@ export class Board {
 
 const translate = (segment: Segment, offset: Vec2): Segment => {
   return { p1: segment.p1.add(offset), p2: segment.p2.add(offset) };
-}
+};
 
 export type AllocationCondition = 'out of bounds' | 'occupied by immovable' | 'occupied by movable' | 'vacant';

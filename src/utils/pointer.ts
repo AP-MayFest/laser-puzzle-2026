@@ -1,4 +1,4 @@
-import {Vec2} from "./vec.ts";
+import {Vec2} from './vec.ts';
 
 const MOUSE_POINTER_ID = -1;
 
@@ -80,7 +80,7 @@ export const handlePointer  = (element: HTMLElement, delegate: PointerEventDeleg
     const onTouchEnd = (ev: TouchEvent) => {
       for (const touch of ev.changedTouches) {
         if (trackingPointerId.has(touch.identifier)) {
-          trackingPointerId.delete(touch.identifier)
+          trackingPointerId.delete(touch.identifier);
           delegate.handleEnd(touch.identifier, posInElement(touch));
         }
       }
@@ -88,7 +88,7 @@ export const handlePointer  = (element: HTMLElement, delegate: PointerEventDeleg
     const onTouchCancel = (ev: TouchEvent) => {
       for (const touch of ev.changedTouches) {
         if (trackingPointerId.has(touch.identifier)) {
-          trackingPointerId.delete(touch.identifier)
+          trackingPointerId.delete(touch.identifier);
           delegate.handleCancel(touch.identifier);
         }
       }

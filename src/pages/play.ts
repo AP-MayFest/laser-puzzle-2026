@@ -1,6 +1,6 @@
 import './play.css';
-import {decodeProblem} from "../puzzle/problem.ts";
-import {Runtime} from "../puzzle/runtime.ts";
+import {decodeProblem} from '../puzzle/problem.ts';
+import {Runtime} from '../puzzle/runtime.ts';
 
 class ResultDialog {
     #element: HTMLDialogElement;
@@ -23,7 +23,7 @@ class ResultDialog {
         }
         closeButton.addEventListener('click', () => {
             dialog.close();
-        })
+        });
 
         this.#element = dialog;
         this.#timeDisplay = timeDisplay;
@@ -45,7 +45,7 @@ const problemCode = params.get('p');
 if (problemCode != null) {
     const problemDecodeResult = decodeProblem(problemCode);
     if (problemDecodeResult.kind === 'ok') {
-        let startAt: number;
+        let startAt = 0;
         const dialog = new ResultDialog();
         const runtime = new Runtime('puzzle-view', problemDecodeResult.problem, () => {
             const timeMs = Date.now() - startAt;

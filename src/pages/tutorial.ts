@@ -1,8 +1,8 @@
 import './tutorial.css';
 
-import {Runtime} from "../puzzle/runtime.ts";
-import {Vec2} from "../utils/vec.ts";
-import type {Problem} from "../puzzle/problem.ts";
+import {Runtime} from '../puzzle/runtime.ts';
+import {Vec2} from '../utils/vec.ts';
+import type {Problem} from '../puzzle/problem.ts';
 
 const scrollTo = (_: string) => () => {
     // setTimeout(() => {
@@ -11,7 +11,7 @@ const scrollTo = (_: string) => () => {
     //         element.scrollIntoView({ behavior: "smooth" });
     //     }
     // }, 100);
-}
+};
 
 const coreConceptProblem: Problem = {
     board: { width: 5, height: 5, placements: [

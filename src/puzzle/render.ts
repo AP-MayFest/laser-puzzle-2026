@@ -7,17 +7,17 @@ import {
   Polarizer,
   PolarizingBeamSplitter,
   Target, type WaveLength,
-} from './components.ts'
-import type {RayPath} from './board.ts'
-import {NormalizedVec2, Vec2} from "../utils/vec.ts"
-import type {Canvas} from "../utils/canvas.ts";
+} from './components.ts';
+import type {RayPath} from './board.ts';
+import {NormalizedVec2, Vec2} from '../utils/vec.ts';
+import type {Canvas} from '../utils/canvas.ts';
 import {
   type BoardLayout, type DragLayout,
   type Layout,
   type ReserveLayout,
-} from "./layout.ts";
-import {ColorController} from "../utils/color-scheme.ts";
-import {getLaserColorProfile} from "./laser-color.ts";
+} from './layout.ts';
+import {ColorController} from '../utils/color-scheme.ts';
+import {getLaserColorProfile} from './laser-color.ts';
 
 export interface Colorpalette {
   board: string;
@@ -89,7 +89,7 @@ export class Renderer {
 
     const ctx = this.canvas.context;
     ctx.save();
-    ctx.translate(0.5, 0.5)
+    ctx.translate(0.5, 0.5);
 
     ctx.strokeStyle = this.colorpalette.grid;
     ctx.lineWidth = GRID_LINE_WIDTH;
@@ -143,7 +143,7 @@ export class Renderer {
         ctx.lineWidth = 0.5 ** 5;
         ctx.setLineDash([unit, unit]);
         ctx.lineDashOffset = (offset - unit / 2) % 1;
-        ctx.beginPath()
+        ctx.beginPath();
         ctx.moveTo(origin.x, origin.y);
         ctx.lineTo(end.x, end.y);
         ctx.stroke();
@@ -229,29 +229,29 @@ export class Renderer {
     const { direction, waveLength } = laser;
 
     const ctx = this.canvas.context;
-    ctx.save()
+    ctx.save();
     ctx.transform(direction.x, direction.y, -direction.y, direction.x, 0, 0);
 
     ctx.fillStyle = this.colorpalette.board;
     ctx.fillRect(-1.5, -0.5, 2, 1);
 
     ctx.fillStyle = waveLength === '650' ? this.colorpalette.red : this.colorpalette.green;
-    ctx.beginPath()
-    ctx.moveTo(-1.50, -0.25)
-    ctx.lineTo(0, -0.25)
-    ctx.lineTo(0, -0.5)
-    ctx.lineTo(+0.5,  0)
-    ctx.lineTo(0, +0.5)
-    ctx.lineTo(0, +0.25)
-    ctx.lineTo(-1.5, +0.25)
-    ctx.closePath()
-    ctx.fill()
+    ctx.beginPath();
+    ctx.moveTo(-1.50, -0.25);
+    ctx.lineTo(0, -0.25);
+    ctx.lineTo(0, -0.5);
+    ctx.lineTo(+0.5,  0);
+    ctx.lineTo(0, +0.5);
+    ctx.lineTo(0, +0.25);
+    ctx.lineTo(-1.5, +0.25);
+    ctx.closePath();
+    ctx.fill();
 
     ctx.lineWidth = 0.5 ** 6;
     ctx.strokeStyle = this.colorpalette.accent;
     ctx.strokeRect(-1.5, -0.5, 2, 1);
 
-    ctx.restore()
+    ctx.restore();
   }
 
   drawTarget(target: Target) {
@@ -259,7 +259,7 @@ export class Renderer {
     const { direction, waveLengthList, lit } = target;
 
     const ctx = this.canvas.context;
-    ctx.save()
+    ctx.save();
     ctx.transform(direction.x, direction.y, -direction.y, direction.x, 0, 0);
 
     let l1: WaveLength, l2: WaveLength;
@@ -303,7 +303,7 @@ export class Renderer {
     ctx.strokeStyle = this.colorpalette.accent;
     ctx.strokeRect(0, -0.5, 0.5, 1);
 
-    ctx.restore()
+    ctx.restore();
   }
 
   drawObstacle() {
@@ -321,7 +321,7 @@ export class Renderer {
     const a = Math.sqrt(0.5);
 
     const ctx = this.canvas.context;
-    ctx.save()
+    ctx.save();
 
     ctx.lineWidth = 0.5 ** 6;
     ctx.strokeStyle = this.colorpalette.accent;
@@ -330,7 +330,7 @@ export class Renderer {
     ctx.fillStyle = this.colorpalette.accent;
     ctx.transform(direction.x, direction.y, -direction.y, direction.x, 0, 0);
 
-    ctx.beginPath()
+    ctx.beginPath();
     ctx.moveTo(-a, 0);
     ctx.lineTo(0, -a);
     ctx.lineTo(0, a);
@@ -346,17 +346,17 @@ export class Renderer {
     const a = Math.sqrt(0.5);
 
     const ctx = this.canvas.context;
-    ctx.save()
+    ctx.save();
 
     ctx.lineWidth = 0.5 ** 6;
     ctx.strokeStyle = this.colorpalette.accent;
     ctx.strokeRect(-0.5, -0.5, 1, 1);
 
-    ctx.lineWidth = 0.5 ** 5
+    ctx.lineWidth = 0.5 ** 5;
     ctx.strokeStyle = this.colorpalette.accent;
     ctx.transform(direction.x, direction.y, -direction.y, direction.x, 0, 0);
 
-    ctx.beginPath()
+    ctx.beginPath();
     ctx.moveTo(0, -a);
     ctx.lineTo(0, a);
     ctx.stroke();
@@ -368,7 +368,7 @@ export class Renderer {
     const { direction, polarity } = polarizer;
 
     const ctx = this.canvas.context;
-    ctx.save()
+    ctx.save();
 
     ctx.lineWidth = 0.5 ** 6;
     ctx.strokeStyle = this.colorpalette.accent;
@@ -381,7 +381,7 @@ export class Renderer {
     ctx.strokeStyle = this.colorpalette.accent;
     ctx.transform(direction.x, direction.y, -direction.y, direction.x, 0, 0);
 
-    ctx.beginPath()
+    ctx.beginPath();
     ctx.moveTo(0, -0.5);
     ctx.lineTo(0, 0.5);
     ctx.stroke();
@@ -394,26 +394,26 @@ export class Renderer {
     const a = Math.sqrt(0.5);
 
     const ctx = this.canvas.context;
-    ctx.save()
+    ctx.save();
 
     ctx.lineWidth = 0.5 ** 6;
     ctx.strokeStyle = this.colorpalette.accent;
     ctx.strokeRect(-0.5, -0.5, 1, 1);
 
-    drawLabel(ctx, 'DM', this.colorpalette.accent, direction.inner(new Vec2(1, 1)) === 0 ? -0.2 : 0.2)
+    drawLabel(ctx, 'DM', this.colorpalette.accent, direction.inner(new Vec2(1, 1)) === 0 ? -0.2 : 0.2);
 
     ctx.transform(direction.x, direction.y, -direction.y, direction.x, 0, 0);
 
     ctx.strokeStyle = this.colorpalette.accent;
     ctx.lineWidth = 0.5 ** 5;
-    ctx.beginPath()
+    ctx.beginPath();
     ctx.moveTo(0, -a);
     ctx.lineTo(0, a);
     ctx.stroke();
 
     ctx.strokeStyle = this.colorpalette.green;
     ctx.lineWidth = 0.5 ** 6;
-    ctx.beginPath()
+    ctx.beginPath();
     ctx.moveTo(0, -a);
     ctx.lineTo(0, a);
     ctx.stroke();
@@ -426,28 +426,28 @@ export class Renderer {
     const a = Math.sqrt(0.5);
 
     const ctx = this.canvas.context;
-    ctx.save()
+    ctx.save();
 
     ctx.lineWidth = 0.5 ** 6;
     ctx.strokeStyle = this.colorpalette.accent;
     ctx.strokeRect(-0.5, -0.5, 1, 1);
 
-    drawLabel(ctx, 'PBS', this.colorpalette.accent, direction.inner(new Vec2(1, 1)) === 0 ? -0.2 : 0.2)
+    drawLabel(ctx, 'PBS', this.colorpalette.accent, direction.inner(new Vec2(1, 1)) === 0 ? -0.2 : 0.2);
 
     ctx.transform(direction.x, direction.y, -direction.y, direction.x, 0, 0);
 
     ctx.strokeStyle = this.colorpalette.accent;
     ctx.lineWidth = 0.5 ** 5;
-    ctx.beginPath()
+    ctx.beginPath();
     ctx.moveTo(0, -a);
     ctx.lineTo(0, a);
     ctx.stroke();
 
     ctx.setLineDash([0.1, 0.1]);
-    ctx.lineDashOffset = -(Math.sqrt(2) - 1.3)/2
+    ctx.lineDashOffset = -(Math.sqrt(2) - 1.3)/2;
     ctx.lineWidth = 0.5 ** 6;
     ctx.strokeStyle = this.colorpalette.board;
-    ctx.beginPath()
+    ctx.beginPath();
     ctx.moveTo(0, -a);
     ctx.lineTo(0, a);
     ctx.stroke();
@@ -458,7 +458,7 @@ export class Renderer {
   }
 }
 
-const fontFamily = `'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'BIZ UDPGothic', 'Noto Sans JP', Robot, sans-serif, system-ui`
+const fontFamily = '\'Hiragino Kaku Gothic ProN\', \'Hiragino Sans\', \'BIZ UDPGothic\', \'Noto Sans JP\', Robot, sans-serif, system-ui';
 
 function drawLabel(ctx: CanvasRenderingContext2D, text: string, color: string, x: number) {
   ctx.save();
@@ -467,8 +467,8 @@ function drawLabel(ctx: CanvasRenderingContext2D, text: string, color: string, x
 
   ctx.font = '16px' + fontFamily;
   ctx.fillStyle = color;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "bottom";
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'bottom';
   ctx.fillText(text, 0, 0);
 
   ctx.restore();
@@ -481,8 +481,8 @@ function drawCount(ctx: CanvasRenderingContext2D, count: number, color: string) 
 
   ctx.font = '16px' + fontFamily;
   ctx.fillStyle = color;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
   ctx.fillText(count === Infinity ? '∞' : count.toString(), 0, 0);
 
   ctx.restore();

@@ -20,14 +20,14 @@ export class ColorController {
     scheme: ColorScheme;
 
     constructor() {
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-        this.scheme = mediaQuery.matches ? darkColorScheme : lightColorScheme
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        this.scheme = mediaQuery.matches ? darkColorScheme : lightColorScheme;
         mediaQuery.addEventListener('change', ev => {
             if (ev.matches) {
                 this.scheme = darkColorScheme;
             } else {
                 this.scheme = lightColorScheme;
             }
-        })
+        });
     }
 }

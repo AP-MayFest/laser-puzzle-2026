@@ -1,8 +1,8 @@
-import {handlePointer, type PointerEventDelegate} from "../utils/pointer.ts";
-import {NormalizedVec2, Vec2} from "../utils/vec.ts";
-import type {Runtime} from "./runtime.ts";
-import {cellOnBoard, positioning, slotOnReserve} from "./layout.ts";
-import {describeComponent} from "./component-descriptor.ts";
+import {handlePointer, type PointerEventDelegate} from '../utils/pointer.ts';
+import {NormalizedVec2, Vec2} from '../utils/vec.ts';
+import type {Runtime} from './runtime.ts';
+import {cellOnBoard, positioning, slotOnReserve} from './layout.ts';
+import {describeComponent} from './component-descriptor.ts';
 
 const DRAG_THRESHOLD_PX = 8;
 const ROTATE_BASIS = new NormalizedVec2(0, 1);
@@ -92,7 +92,7 @@ export class InteractionController implements PointerEventDelegate {
       this.runtime.dispatch({ kind: 'rotate', cell: cellOnBoard(p.position, this.runtime.layout), basis: ROTATE_BASIS });
     } else if (state.interaction === 'dragging') {
       const p = positioning(point, this.runtime.layout);
-      if (p != null && p.area === 'board') {
+      if (p?.area === 'board') {
         const fulfilled = this.runtime.dispatch({
           kind: 'allocate',
           pointerId,
@@ -102,7 +102,7 @@ export class InteractionController implements PointerEventDelegate {
           this.runtime.dispatch({kind: 'turn-in', pointerId});
         }
       } else {
-        this.runtime.dispatch({kind: 'turn-in', pointerId})
+        this.runtime.dispatch({kind: 'turn-in', pointerId});
       }
     }
   }

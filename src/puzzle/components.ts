@@ -4,8 +4,8 @@
 //
 //
 
-import { Vec2, NormalizedVec2 } from "../utils/vec.ts";
-import {pathToSegment, type Segment} from "./collision.ts";
+import { Vec2, NormalizedVec2 } from '../utils/vec.ts';
+import {pathToSegment, type Segment} from './collision.ts';
 
 export type WaveLength = '532' | '650';
 
@@ -74,7 +74,7 @@ export class Laser implements Component {
       new Vec2(0.5, 0.5),
       new Vec2(-1.5, 0.5),
       new Vec2(-1.5, -0.5)
-    ].map(v => v.rotateWith(this.direction)))
+    ].map(v => v.rotateWith(this.direction)));
   }
 
   get occupancy(): Occupancy {
@@ -86,7 +86,7 @@ export class Target implements Component {
   direction: NormalizedVec2;
   waveLengthList: [WaveLength] | [WaveLength, WaveLength];
   lit: boolean;
-  cutoff: number = 0;
+  cutoff = 0;
 
   constructor(direction: NormalizedVec2, waveLengthList: [WaveLength] | [WaveLength, WaveLength]) {
     this.direction = direction;
@@ -181,7 +181,7 @@ export class Mirror implements Component {
       new Vec2(-a, 0),
       new Vec2(0, -a),
       new Vec2(0, +a),
-    ].map(v => v.rotateWith(this.dsm.direction)))
+    ].map(v => v.rotateWith(this.dsm.direction)));
   }
 
   get occupancy(): Occupancy {
@@ -213,7 +213,7 @@ export class DoubleSidedMirror implements Component {
     return [{
       p1: new Vec2(0, -a).rotateWith(this.direction),
       p2: new Vec2(0, +a).rotateWith(this.direction),
-    }]
+    }];
   }
 
   get occupancy(): Occupancy {
@@ -259,7 +259,7 @@ export class Polarizer implements Component {
       // { p1: c1, p2: c2 },
       // { p1: c3, p2: c4 },
       { p1: c5, p2: c6 },
-    ]
+    ];
   }
 
   get occupancy(): Occupancy {

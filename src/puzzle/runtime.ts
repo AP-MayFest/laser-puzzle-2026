@@ -1,12 +1,12 @@
-import {Board} from "./board.ts";
-import {Renderer} from "./render.ts";
-import {Canvas} from "../utils/canvas.ts";
-import {type ReservableComponentDescriptor, Reserve} from "./reserve.ts";
-import {InteractionController} from "./interaction.ts";
-import {NormalizedVec2, type Vec2} from "../utils/vec.ts";
-import {type ComponentDescriptor, createComponent} from "./component-descriptor.ts";
-import {calcLayout, cellOnBoard, type DragLayout, type Layout, positioning} from "./layout.ts";
-import type {Problem} from "./problem.ts";
+import {Board} from './board.ts';
+import {Renderer} from './render.ts';
+import {Canvas} from '../utils/canvas.ts';
+import {type ReservableComponentDescriptor, Reserve} from './reserve.ts';
+import {InteractionController} from './interaction.ts';
+import {NormalizedVec2, type Vec2} from '../utils/vec.ts';
+import {type ComponentDescriptor, createComponent} from './component-descriptor.ts';
+import {calcLayout, cellOnBoard, type DragLayout, type Layout, positioning} from './layout.ts';
+import type {Problem} from './problem.ts';
 
 export class Runtime {
   problem: Problem;
@@ -47,7 +47,7 @@ export class Runtime {
     if (this.#running) return;
     this.#running = true;
     this.tick();
-  }
+  };
 
   private tick = () => {
     if (!this.#running) return;
@@ -64,7 +64,7 @@ export class Runtime {
       if (p == null || p.area === 'reserve') return { position, component: createComponent(desc) };
       const cell = cellOnBoard(p.position, this.layout);
       const component = createComponent(desc);
-      const condition = this.board.checkAllocation(cell, component)
+      const condition = this.board.checkAllocation(cell, component);
       const previewCell = condition === 'vacant' || condition === 'occupied by movable' ? cell : undefined;
       return { position, component, previewCell } satisfies DragLayout;
     }).filter(v => v != null);
@@ -78,7 +78,7 @@ export class Runtime {
     }
 
     this.#frameId = requestAnimationFrame(this.tick);
-  }
+  };
 
   dispose() {
     this.#running = false;
@@ -137,34 +137,34 @@ export class Runtime {
 type Operation = RotateOperation | TakeOperation | RemoveOperation | AllocateOperation | TurnInOperation | ResetOperation;
 
 interface RotateOperation {
-  kind: "rotate";
+  kind: 'rotate';
   cell: Vec2;
   basis: NormalizedVec2;
 }
 
 interface TakeOperation {
-  kind: "take";
+  kind: 'take';
   pointerId: number;
   descriptor: ReservableComponentDescriptor;
 }
 
 interface RemoveOperation {
-  kind: "remove";
+  kind: 'remove';
   pointerId: number;
   cell: Vec2;
 }
 
 interface AllocateOperation {
-  kind: "allocate";
+  kind: 'allocate';
   pointerId: number;
   cell: Vec2;
 }
 
 interface TurnInOperation {
-  kind: "turn-in";
+  kind: 'turn-in';
   pointerId: number;
 }
 
 interface ResetOperation {
-  kind: "reset";
+  kind: 'reset';
 }

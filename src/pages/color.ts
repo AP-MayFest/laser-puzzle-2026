@@ -4,9 +4,9 @@ import {
     DEFAULT_LASER_COLOR_PROFILE,
     getLaserColorProfile,
     setLaserColorProfile,
-} from "../puzzle/laser-color.ts";
-import {Runtime} from "../puzzle/runtime.ts";
-import {Vec2} from "../utils/vec.ts";
+} from '../puzzle/laser-color.ts';
+import {Runtime} from '../puzzle/runtime.ts';
+import {Vec2} from '../utils/vec.ts';
 
 const redInput = document.getElementById('laser-color-red');
 const greenInput = document.getElementById('laser-color-green');

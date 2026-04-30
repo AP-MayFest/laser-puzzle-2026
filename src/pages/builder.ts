@@ -1,9 +1,9 @@
 import './builder.css';
 
-import {type ReserveCount} from "../puzzle/reserve.ts";
-import {Runtime} from "../puzzle/runtime.ts";
-import {describeComponent} from "../puzzle/component-descriptor.ts";
-import {encodeProblem} from "../puzzle/problem.ts";
+import {type ReserveCount} from '../puzzle/reserve.ts';
+import {Runtime} from '../puzzle/runtime.ts';
+import {describeComponent} from '../puzzle/component-descriptor.ts';
+import {encodeProblem} from '../puzzle/problem.ts';
 
 class SizeObserver {
     width: number;
@@ -77,13 +77,13 @@ new SizeObserver(resizeRuntime);
 function generateProblemCode(): string {
     if (runtime == null) throw new Error('cannot find runtime');
     const inputs = [
-        "reserve-count-mirror",
-        "reserve-count-double-sided-mirror",
-        "reserve-count-dichroic-mirror",
-        "reserve-count-polarizer-P",
-        "reserve-count-polarizer-S",
-        "reserve-count-polarizer-D",
-        "reserve-count-PBS",
+        'reserve-count-mirror',
+        'reserve-count-double-sided-mirror',
+        'reserve-count-dichroic-mirror',
+        'reserve-count-polarizer-P',
+        'reserve-count-polarizer-S',
+        'reserve-count-polarizer-D',
+        'reserve-count-PBS',
     ].map(id => document.getElementById(id));
     if (!inputs.every((e) => e != null && e instanceof HTMLInputElement)) {
         throw new Error('bad html');
@@ -112,7 +112,7 @@ function generateProblemCode(): string {
 }
 
 function generateUrl(): string {
-    return window.location.protocol + '//' + window.location.host + import.meta.env.BASE_URL + "play.html?p=" + generateProblemCode();
+    return window.location.protocol + '//' + window.location.host + import.meta.env.BASE_URL + 'play.html?p=' + generateProblemCode();
 }
 
 document.getElementById('copy-link')?.addEventListener('click', () => {

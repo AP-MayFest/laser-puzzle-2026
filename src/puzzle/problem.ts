@@ -1,12 +1,12 @@
-import type {BoardInit, Placement} from "./board.ts";
-import type {ReserveCount} from "./reserve.ts";
+import type {BoardInit, Placement} from './board.ts';
+import type {ReserveCount} from './reserve.ts';
 import {
     assertingCardinalDirection,
     assertingColor,
     assertingDiagonalDirection, assertingPolarity,
     type ComponentDescriptor
-} from "./component-descriptor.ts";
-import {Vec2} from "../utils/vec.ts";
+} from './component-descriptor.ts';
+import {Vec2} from '../utils/vec.ts';
 
 export interface Problem {
     board: BoardInit;
@@ -15,9 +15,7 @@ export interface Problem {
 
 export type DecodeResult =
     | { kind: 'ok'; problem: Problem; }
-    | { kind: 'error'; }
-;
-
+    | { kind: 'error'; };
 export function encodeProblem(problem: Problem): string {
     const placements = problem.board.placements.map(({ position, descriptor }) => {
        return {
@@ -35,15 +33,15 @@ export function encodeProblem(problem: Problem): string {
 }
 
 export function decodeProblem(code: string): DecodeResult {
-    const match = code.match(/^(\d+)x(\d+)-(\w*)-(\w*)$/);
+    const match = /^(\d+)x(\d+)-(\w*)-(\w*)$/.exec(code);
     if (match == null) return { kind: 'error' };
-    const [_, _width, _height, placementsCode, reserveCode] = match;
-    const width = +_width, height = +_height;
+    const [, __width, __height, placementsCode, reserveCode] = match;
+    const width = +__width, height = +__height;
 
     const placements: Placement[] = [];
     let p = 0, rest = placementsCode;
     while (rest.length > 0) {
-        const match = rest.match(/^(\d+)([a-zA-Z]+)(.*)$/);
+        const match = /^(\d+)([a-zA-Z]+)(.*)$/.exec(rest);
         if (match == null) return { kind: 'error' };
         const count = +match[1], code = match[2];
         p += count;
@@ -77,7 +75,7 @@ function decodeDescriptor(code: string): ComponentDescriptor {
         try {
             const c2 = assertingColor(code.charAt(2));
             return { kind: 'target', direction: assertingCardinalDirection(code.charAt(3)), colors: c1 == c2 ? [c1] : [c1, c2] };
-        } catch (_) {
+        } catch (_: unknown) {
             return { kind: 'target', direction: assertingCardinalDirection(code.charAt(2)), colors: [c1] };
         }
     }
@@ -114,7 +112,7 @@ function encodeReserveCount(reserveCount: ReserveCount): string {
     if (reserveCount.pbs != null) add('g', reserveCount.pbs);
     if (reserveCount.obstacle != null) add('h', reserveCount.obstacle);
 
-    return codes.join('')
+    return codes.join('');
 }
 
 function decodeReserveCount(code: string): ReserveCount {
@@ -122,7 +120,7 @@ function decodeReserveCount(code: string): ReserveCount {
 
     let rest = code;
     while (rest.length > 0) {
-        const match = rest.match(/^([a-z][A-Z]?)(\d+)(.*)$/);
+        const match = /^([a-z][A-Z]?)(\d+)(.*)$/.exec(rest);
         if (match == null) throw new Error('unknown code of ReserveCount');
         const code = match[1], count = +match[2] || Infinity;
         rest = match[3];

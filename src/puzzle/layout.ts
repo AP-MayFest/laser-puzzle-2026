@@ -1,8 +1,8 @@
-import type {Canvas} from "../utils/canvas.ts";
-import type {Board, RayPath} from "./board.ts";
-import type {Reserve} from "./reserve.ts";
-import {Vec2} from "../utils/vec.ts";
-import {type Component} from "./components.ts";
+import type {Canvas} from '../utils/canvas.ts';
+import type {Board, RayPath} from './board.ts';
+import type {Reserve} from './reserve.ts';
+import {Vec2} from '../utils/vec.ts';
+import {type Component} from './components.ts';
 
 export type Orientation = 'portrait' | 'landscape';
 
@@ -80,7 +80,7 @@ const calcPortraitLayout = (canvas: Size, boardLayout: BoardLayout, reserveLayou
             layout: reserveLayout,
             offset: new Vec2((canvas.width - reserveWidth * scale) / 2, (canvas.height - height * scale) / 2 + boardHeight * scale),
         },
-    }
+    };
 };
 
 const calcLandscapeLayout = (canvas: Size, boardLayout: BoardLayout, reserveLayout: ReserveLayout):Omit <Layout, 'drags'> => {
@@ -100,8 +100,8 @@ const calcLandscapeLayout = (canvas: Size, boardLayout: BoardLayout, reserveLayo
             layout: reserveLayout,
             offset: new Vec2((canvas.width - width * scale) / 2 + boardWidth * scale, (canvas.height - reserveHeight * scale) / 2),
         },
-    }
-}
+    };
+};
 
 export const positioning = (canvasPos: Vec2, layout: Layout): { area: 'board' | 'reserve'; position: Vec2} | undefined => {
     const { scale, board, reserve } = layout;
@@ -114,15 +114,15 @@ export const positioning = (canvasPos: Vec2, layout: Layout): { area: 'board' | 
     if (0 < reservePos.x && reservePos.x < reserve.layout.width && 0 < reservePos.y && reservePos.y < reserve.layout.height) {
         return { area: 'reserve', position: reservePos.sub(reserve.layout.coordinateOffset) };
     }
-}
+};
 
 export const cellOnBoard = (boardPos: Vec2, _: Layout): Vec2 => {
   return boardPos.round();
-}
+};
 
 export const slotOnReserve = (reservePos: Vec2, layout: Layout): Slot | undefined => {
   const distance = layout.reserve.layout.slots.map(slot => slot.position.sub(reservePos).l2());
   if (distance.length === 0) return undefined;
   const argmin = distance.reduce((i, v, j, a) => v < a[i] ? j : i, 0);
   return layout.reserve.layout.slots[argmin];
-}
+};
