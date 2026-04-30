@@ -1,7 +1,10 @@
 name = "laser-puzzle-2026"
 compatibility_date = "2026-04-12"
+main = "src/worker.ts"
 
 [assets]
+binding = "ASSETS"
 directory = "dist"
 html_handling = "none"
 not_found_handling = "404-page"
+run_worker_first = ["/api/**/*", "/2026/laser-puzzle/api/**/*"]
