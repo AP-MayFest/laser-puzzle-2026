@@ -38,6 +38,7 @@ export class Board {
   private cells: Cell[];
   private rays: RayPath[];
   private frameHits: Segment[];
+  private lastModified: number;
 
   constructor(boardInit: BoardInit) {
     const {width, height, placements} = boardInit;
@@ -51,6 +52,7 @@ export class Board {
       new Vec2(width + 1.5, height + 1.5),
       new Vec2(-0.5, height + 1.5),
     ]);
+    this.lastModified = Date.now();
 
     for (const placement of placements) {
       const {position, descriptor, movable} = placement;
@@ -67,6 +69,7 @@ export class Board {
   private removeCell(position: Vec2): Cell | undefined {
     const index = this.cells.findIndex(cell => cell.movable && cell.component.occupancy.positions.map(p => p.add(cell.position)).some(p => p.equals(position)));
     if (index === -1) return undefined;
+    this.lastModified = Date.now();
     const [cell] = this.cells.splice(index, 1);
     return cell;
   }
@@ -89,9 +92,9 @@ export class Board {
   }
 
   get isSolved(): boolean {
-    return this.cells
-        .map(cell => cell.component)
-        .every(component => !(component instanceof Target) || component.lit);
+    const targets = this.cells.map(cell => cell.component).filter(c => c instanceof Target);
+
+    return targets.every(target => target.lit && target.cutoff >= this.lastModified);
   }
 
   calcLayout(): BoardLayout {
@@ -105,6 +108,7 @@ export class Board {
   }
 
   reset() {
+    this.lastModified = Date.now();
     this.cells = this.cells.filter(cell => !cell.movable);
     this.cells.forEach(cell => { cell.incoming = []; })
     this.rays = [];
@@ -113,6 +117,7 @@ export class Board {
   rotate(position: Vec2, basis: NormalizedVec2) {
     const cell = this.selectCell(position);
     if (cell == null || !cell.movable) return false;
+    this.lastModified = Date.now();
     cell.component.rotate(basis);
     cell.incoming = [];
     return true;
@@ -121,6 +126,7 @@ export class Board {
   remove(position: Vec2): ComponentDescriptor | null {
     const cell = this.removeCell(position);
     if (cell == null) return null;
+    this.lastModified = Date.now();
     return describeComponent(cell.component);
   }
 
@@ -130,12 +136,14 @@ export class Board {
     if (condition === 'out of bounds' || condition === 'occupied by immovable') return false;
 
     if (condition === 'occupied by movable') {
+      this.lastModified = Date.now();
       const cells = component.occupancy.positions
           .map(p => this.removeCell(p.add(position)))
           .filter(v => v != null);
       this.cells.push({ position, component, movable: true, incoming: [] });
       return cells.map(cell => describeComponent(cell.component));
     } else if (condition === 'vacant') {
+      this.lastModified = Date.now();
       this.cells.push({position, component, movable: true, incoming: []});
       return true;
     } else {

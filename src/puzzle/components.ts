@@ -14,6 +14,7 @@ export interface Ray {
   direction: NormalizedVec2;
   waveLength: WaveLength;
   polarity: Vec2;
+  created_at: number;
 }
 
 export interface Collision {
@@ -44,18 +45,21 @@ export class Laser implements Component {
   redirects(_: readonly Collision[]): Ray[] {
     const slip = new Vec2(this.direction.y, this.direction.x).scale(this.waveLength === '532' ? 0.1 : -0.1);
     const origin = this.direction.scale(0.5).add(slip);
+    const created_at = Date.now();
     return [
       {
         origin,
         direction: this.direction,
         waveLength: this.waveLength,
         polarity: new NormalizedVec2(1, 0),
+        created_at,
       },
       {
         origin,
         direction: this.direction,
         waveLength: this.waveLength,
         polarity: new NormalizedVec2(0, 1),
+        created_at,
       },
     ];
   }
@@ -82,6 +86,7 @@ export class Target implements Component {
   direction: NormalizedVec2;
   waveLengthList: [WaveLength] | [WaveLength, WaveLength];
   lit: boolean;
+  cutoff: number = 0;
 
   constructor(direction: NormalizedVec2, waveLengthList: [WaveLength] | [WaveLength, WaveLength]) {
     this.direction = direction;
@@ -90,13 +95,13 @@ export class Target implements Component {
   }
 
   redirects(collisions: Collision[]): Ray[] {
-    const counts = this.waveLengthList.map(() => 0);
-    for (const { ray: { waveLength } } of collisions.filter(c => c.at.inner(this.direction) > 0.49)) {
+    const cutoffs = this.waveLengthList.map(() => 0);
+    for (const { ray: { waveLength, created_at } } of collisions.filter(c => c.at.inner(this.direction) > 0.49)) {
       let flag = false;
       for (const [i, wl] of this.waveLengthList.entries()) {
         if (waveLength === wl) {
           flag = true;
-          counts[i] += 1
+          cutoffs[i] = Math.max(cutoffs[i], created_at);
         }
       }
       if (!flag) {
@@ -104,7 +109,8 @@ export class Target implements Component {
         return [];
       }
     }
-    this.lit = counts.every(count => count > 0);
+    this.lit = cutoffs.every(c => c > 0);
+    this.cutoff = Math.min(...cutoffs);
     return [];
   }
 
