@@ -90,7 +90,7 @@ export const createShareText = (date: string, time: number): string => {
 ➡️Daily Laser Puzzle⬅️
 ${formatDateJa(date)}
 🕑${formatTime(time)} でクリア✨
-五月祭${countDownText(date)}📆
+五月祭${countDownText(date)}
 
 #工学博覧会2026 #五月祭 #好きが芽吹くとき
 ${dailyUrl(date)}

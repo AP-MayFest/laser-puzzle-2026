@@ -62,7 +62,7 @@ const DailyProblemFrame: FC<{
       open={overlay}
       today={today}
       onPlay={() => setOverlay(false)}
-      onArchives={() => startTransition(() => { setView('archives') })}
+      onArchives={() => startTransition(() => { setView('archives'); })}
     />
 
     <ResultDialog today={today}/>

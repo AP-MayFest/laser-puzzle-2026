@@ -2,8 +2,11 @@ export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export interface Credit {
     author: string;
-    sourceName: string | null;
-    sourceUrl: string | null;
+    source?: Source;
+}
+export interface Source {
+    name: string;
+     url?: string; 
 }
 
 export interface Problem {

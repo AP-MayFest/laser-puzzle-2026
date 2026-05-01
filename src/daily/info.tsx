@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, type FC } from 'react';
-import type { Credit, Problem } from './api.ts';
+import type { Credit, Problem, Source } from './api.ts';
 import { useRecordValue } from './record.ts';
 import { copyText, countDownText, createShareText, formatDateJa, formatTime, tutorialHref } from './utils.ts';
 
@@ -43,7 +43,7 @@ export const ProblemInfoDialog: FC<{
     <nav>
       <a href={tutorialHref()}>ルール</a>
       <button type="button" onClick={onPlay} autoFocus>プレイ</button>
-      <button type="button" onClick={onArchives}>過去問</button>
+      <button type="button" onClick={onArchives} disabled>過去問</button>
     </nav>
   </dialog>;
 };
@@ -51,33 +51,22 @@ export const ProblemInfoDialog: FC<{
 const CreditDisplay: FC<{ credit: Credit }> = ({ credit }) => {
   return <p className='credit'>
     <span>作者：{credit.author}</span><br/>
-    {renderSource(credit)}
+    {credit.source && renderSource(credit.source)}
   </p>;
 };
 
-function renderSource(credit: Credit) {
-  if (credit.sourceName != null && credit.sourceUrl != null) {
+function renderSource(source: Source) {
+  if (source.url != null) {
     return <>
       <span> </span>
-      <span>出典：<a href={credit.sourceUrl} rel="noreferrer" target="_blank">{credit.sourceName}</a></span>
+      <span>出典：<a href={source.url} rel="noreferrer" target="_blank">{source.name}</a></span>
     </>;
   }
 
-  if (credit.sourceName != null) {
-    return <>
-      <span> </span>
-      <span>出典：{credit.sourceName}</span>
-    </>;
-  }
-
-  if (credit.sourceUrl != null) {
-    return <>
-      <span> </span>
-      <a href={credit.sourceUrl} rel="noreferrer" target="_blank">出典リンク</a>
-    </>;
-  }
-
-  return null;
+  return <>
+    <span> </span>
+    <span>出典：{source.name}</span>
+  </>;
 }
 
 const RecordDisplay: FC<{ date: string; today: boolean }> = ({ date, today }) => {

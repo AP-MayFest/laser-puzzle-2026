@@ -13,7 +13,7 @@ export const Archives: FC = () => {
     ? [...ps.problems].sort((left, right) => right.date.localeCompare(left.date))
     : [];
 
-  if (problems.length === 0) return <main>過去問はまだありません。</main>
+  if (problems.length === 0) return <main>過去問はまだありません。</main>;
   
   return <main>
     <h1>過去問</h1>
