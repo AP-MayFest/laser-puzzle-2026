@@ -12,14 +12,15 @@ import {
 } from './record.ts';
 import { ProblemInfoDialog } from './info.tsx';
 import { ResultDialog } from './result.tsx';
+import { formatDateJa } from './utils.ts';
 
 export const DailyPlayer: FC = () => {
   const p = useAtomValue(dailyProblem);
 
   if (p.status === 'unknown error') {
-    return <main>今日の問題を読み込めませんでした。</main>;
+    return <main><p>今日の問題を読み込めませんでした。</p></main>;
   }
-  if (p.status === 'not found') return <main>今日の問題は公開されていません。</main>;
+  if (p.status === 'not found') return <main><p>今日の問題は公開されていません。</p></main>;
   const problem = p.problem;
 
   return <DailyProblemFrame
@@ -32,9 +33,9 @@ export const ArchivePlayer: FC<{ date: string }> = ({ date }) => {
   const p = useAtomValue(archivedProblem(date));
 
   if (p.status === 'unknown error') {
-    return <main>{date}の問題を読み込めませんでした。</main>;
+    return <main><p>{formatDateJa(date)}の問題を読み込めませんでした。</p></main>;
   }
-  if (p.status === 'not found') return <main>{date}の問題はありません。</main>;
+  if (p.status === 'not found') return <main><p>{formatDateJa(date)}の問題はありません。</p></main>;
   const problem = p.problem;
 
   return <DailyProblemFrame

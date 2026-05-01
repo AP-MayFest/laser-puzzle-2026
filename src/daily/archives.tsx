@@ -15,7 +15,7 @@ export const Archives: FC = () => {
     ? [...ps.problems].sort((left, right) => right.date.localeCompare(left.date))
     : [];
 
-  if (problems.length === 0) return <main>過去問はまだありません。</main>;
+  if (problems.length === 0) return <main><p>過去問はまだありません。</p></main>;
   
   return <main className='archives'>
     <h1>過去問</h1>
@@ -42,8 +42,7 @@ const ArchivedProblem: FC<{ problem: Problem}> = ({ problem }) => {
 
 const RecordDisplay: FC<{ date: string; }> = ({ date }) => {
   const record = useRecordValue(date);
-  if (record == null) return null;
   return <p className='record'>
-    <span>🕓{formatTime(record.time)}</span>
+    <span>🕓{formatTime(record?.time)}</span>
   </p>;
 };
