@@ -1,0 +1,31 @@
+main {
+    width: 100svw;
+    height: 100svh;
+}
+
+main > button {
+    display: block;
+    width: 5em;
+
+    border-radius: 1rem;
+    border: 2px solid var(--text-color);
+
+    font-size: 1.5rem;
+    line-height: 2;
+    color: var(--text-color);
+    background-color: transparent;
+
+    cursor: pointer;
+}
+
+main > .open-info {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+}
+
+main > .reset {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}

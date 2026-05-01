@@ -75,7 +75,7 @@ function decodeDescriptor(code: string): ComponentDescriptor {
         try {
             const c2 = assertingColor(code.charAt(2));
             return { kind: 'target', direction: assertingCardinalDirection(code.charAt(3)), colors: c1 == c2 ? [c1] : [c1, c2] };
-        } catch (_: unknown) {
+        } catch {
             return { kind: 'target', direction: assertingCardinalDirection(code.charAt(2)), colors: [c1] };
         }
     }

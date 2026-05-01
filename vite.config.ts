@@ -9,10 +9,17 @@ export default defineConfig({
         react(),
         babel({ presets: [reactCompilerPreset()] }),
     ],
+    server: {
+        proxy: {
+            '/api': { target: 'http://localhost:8787/' },
+            '/2026/laser-puzzle/api': { target: 'http://localhost:8787/' },
+        }
+    },
     build: {
         rolldownOptions: {
             input: {
                 index: resolve(import.meta.dirname, 'index.html'),
+                daily: resolve(import.meta.dirname, 'daily.html'),
                 play: resolve(import.meta.dirname, 'play.html'),
                 builder: resolve(import.meta.dirname, 'builder.html'),
                 tutorial: resolve(import.meta.dirname, 'tutorial.html'),

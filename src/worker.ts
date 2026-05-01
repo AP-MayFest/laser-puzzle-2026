@@ -1,4 +1,4 @@
-import type {DailyApiErrorResponse, DailyArchivesResponse, DailyProblem} from './daily/api.ts';
+import type {DailyArchivesResponse, Problem} from './daily/api.ts';
 import {getArchivedDailyProblems, getTodayDailyProblem} from './worker/daily-problems.ts';
 
 interface FetcherBinding {
@@ -21,13 +21,7 @@ export default {
         }
 
         if (request.method !== 'GET') {
-            return jsonError(
-                {
-                    code: 'method_not_allowed',
-                    message: 'Only GET is supported for this endpoint.',
-                },
-                405,
-            );
+            return new Response(null, { status: 405 });
         }
 
         if (pathname === '/api/daily/today') {
@@ -38,26 +32,14 @@ export default {
             return handleArchives();
         }
 
-        return jsonError(
-            {
-                code: 'not_found',
-                message: 'The requested API endpoint does not exist.',
-            },
-            404,
-        );
+        return new Response(null, { status: 404 });
     },
 };
 
 function handleToday(): Response {
     const problem = getTodayDailyProblem();
     if (problem == null) {
-        return jsonError(
-            {
-                code: 'daily_not_found',
-                message: 'No daily puzzle is published for today.',
-            },
-            404,
-        );
+        return new Response(null, { status: 404 });
     }
 
     return json(problem);
@@ -87,7 +69,7 @@ function normalizeApiPathname(pathname: string): string | null {
     return normalized;
 }
 
-function json(body: DailyProblem | DailyArchivesResponse | DailyApiErrorResponse, init?: ResponseInit): Response {
+function json(body: Problem | DailyArchivesResponse, init?: ResponseInit): Response {
     const headers = new Headers(init?.headers);
     headers.set('content-type', JSON_CONTENT_TYPE);
     headers.set('cache-control', CACHE_CONTROL);
@@ -96,8 +78,4 @@ function json(body: DailyProblem | DailyArchivesResponse | DailyApiErrorResponse
         ...init,
         headers,
     });
-}
-
-function jsonError(error: DailyApiErrorResponse['error'], status: number): Response {
-    return json({ error }, { status });
 }

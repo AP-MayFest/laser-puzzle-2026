@@ -18,12 +18,13 @@ export class Runtime {
   interaction: InteractionController;
   holding: Map<number, ComponentDescriptor>;
   history: Operation[];
-  onSolve: () => void;
+  onSolve: (at: number) => void;
   isSolved = false;
+  onDispatch: () => void = () => {};
   #running = false;
   #frameId: number | null = null;
 
-  constructor(canvasId: string, problem: Problem, onSolve: () => void) {
+  constructor(canvasId: string, problem: Problem, onSolve: (at: number) => void) {
     const canvas = new Canvas(canvasId);
     const board = new Board(problem.board);
     const reserve = new Reserve(problem.reserve);
@@ -74,7 +75,7 @@ export class Runtime {
 
     if (isSolved && !this.isSolved) {
       this.isSolved = true;
-      this.onSolve();
+      this.onSolve(this.board.lastModified);
     }
 
     this.#frameId = requestAnimationFrame(this.tick);
@@ -89,8 +90,11 @@ export class Runtime {
   }
 
   dispatch(operation: Operation): boolean {
-    this.history.push(operation);
-
+    if (!(operation.hooked ?? false)) {
+      this.history.push(operation);
+      this.onDispatch();
+    }
+    
     if (operation.kind === 'turn-in') {
       const descriptor = this.holding.get(operation.pointerId);
       if (descriptor == null) return false;
@@ -98,17 +102,18 @@ export class Runtime {
       this.reserve.turnIn(descriptor);
       return true;
     } else if (operation.kind === 'rotate') {
-      return this.board.rotate(operation.cell, operation.basis);
+      const fulfilled = this.board.rotate(operation.cell, operation.basis);
+      return fulfilled;
     } else if (operation.kind === 'take') {
       const descriptor = this.reserve.take(operation.descriptor);
       if (descriptor == null) return false;
-      if (this.holding.has(operation.pointerId)) this.dispatch({ kind: 'turn-in', pointerId: operation.pointerId });
+      if (this.holding.has(operation.pointerId)) this.dispatch({ kind: 'turn-in', pointerId: operation.pointerId, hooked: true });
       this.holding.set(operation.pointerId, descriptor);
       return true;
     } else if (operation.kind === 'remove') {
       const descriptor = this.board.remove(operation.cell);
       if (descriptor == null) return false;
-      if (this.holding.has(operation.pointerId)) this.dispatch({ kind: 'turn-in', pointerId: operation.pointerId });
+      if (this.holding.has(operation.pointerId)) this.dispatch({ kind: 'turn-in', pointerId: operation.pointerId, hooked: true });
       this.holding.set(operation.pointerId, descriptor);
       return true;
     } else if (operation.kind === 'allocate') {
@@ -120,12 +125,13 @@ export class Runtime {
       if (typeof removed === 'boolean') return removed;
       for (const desc of removed) {
         this.holding.set(operation.pointerId, desc);
-        this.dispatch({ kind: 'turn-in', pointerId: operation.pointerId });
+        this.dispatch({ kind: 'turn-in', pointerId: operation.pointerId, hooked: true });
       }
       return true;
     } else if (operation.kind === 'reset') {
       this.board = new Board(this.problem.board);
       this.reserve = new Reserve(this.problem.reserve);
+      this.holding.clear();
 
       return true;
     } else {
@@ -134,37 +140,43 @@ export class Runtime {
   }
 }
 
-type Operation = RotateOperation | TakeOperation | RemoveOperation | AllocateOperation | TurnInOperation | ResetOperation;
+export type Operation = RotateOperation | TakeOperation | RemoveOperation | AllocateOperation | TurnInOperation | ResetOperation;
 
 interface RotateOperation {
   kind: 'rotate';
   cell: Vec2;
   basis: NormalizedVec2;
+  hooked?: boolean;
 }
 
 interface TakeOperation {
   kind: 'take';
   pointerId: number;
   descriptor: ReservableComponentDescriptor;
+  hooked?: boolean;
 }
 
 interface RemoveOperation {
   kind: 'remove';
   pointerId: number;
   cell: Vec2;
+  hooked?: boolean;
 }
 
 interface AllocateOperation {
   kind: 'allocate';
   pointerId: number;
   cell: Vec2;
+  hooked?: boolean;
 }
 
 interface TurnInOperation {
   kind: 'turn-in';
   pointerId: number;
+  hooked?: boolean;
 }
 
 interface ResetOperation {
   kind: 'reset';
+  hooked?: boolean;
 }
