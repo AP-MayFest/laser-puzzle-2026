@@ -33,16 +33,18 @@ export const ResultDialog: FC<{ today?: boolean }> = ({ today = false }) => {
     await copyText(createShareText(res.date, res.time));
   }, [res, today]);
 
+  const handleClose = () => setRes(undefined);
+
+
   if (res == null) return (
     <dialog
       className='result'
       ref={dialogRef}
       closedby='any'
-      onCancel={() => {
-        setRes(undefined);
-      }}
+      onCancel={handleClose}
     />
   );
+
 
   const {date, time} = res;
 
@@ -50,9 +52,7 @@ export const ResultDialog: FC<{ today?: boolean }> = ({ today = false }) => {
     className='result'
     ref={dialogRef}
     closedby='any'
-    onCancel={() => {
-      setRes(undefined);
-    }}>
+    onCancel={handleClose}>
     <h2>{formatDateJa(date)}</h2>
     
     <p className='record'>
@@ -61,5 +61,6 @@ export const ResultDialog: FC<{ today?: boolean }> = ({ today = false }) => {
     { today && <p className='countdown'>五月祭{countDownText(date)}</p>}
 
     { today && <button onClick={handleCopy}>共有</button> }
+    <button onClick={handleClose}>閉じる</button>
   </dialog>;
 };
