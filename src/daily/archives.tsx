@@ -1,9 +1,11 @@
-import { useAtomValue } from 'jotai';
-import type { FC } from 'react';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { useTransition, type FC } from 'react';
 import type { Problem } from './api.ts';
 import { archivedProblems } from './state/problems.ts';
-import { progress as progressState } from './record.ts';
-import { dailyHref, difficultyLabels, formatTime } from './utils.ts';
+import { useRecordValue } from './record.ts';
+import { formatDateJa, formatTime } from './utils.ts';
+import { CreditDisplay } from './info.tsx';
+import { viewAtom } from './state/routing.ts';
 
 export const Archives: FC = () => {
   const ps = useAtomValue(archivedProblems);
@@ -15,7 +17,7 @@ export const Archives: FC = () => {
 
   if (problems.length === 0) return <main>過去問はまだありません。</main>;
   
-  return <main>
+  return <main className='archives'>
     <h1>過去問</h1>
     <ol>
       { problems.map(p => <li key={p.date}><ArchivedProblem problem={p} /></li>)}
@@ -24,13 +26,24 @@ export const Archives: FC = () => {
 };
 
 const ArchivedProblem: FC<{ problem: Problem}> = ({ problem }) => {
-  const { date, credit, difficulty, problemCode } = problem;
-  const progress = useAtomValue(progressState(date));
-  return <div>
-    <a href={dailyHref(date)}>{date}</a>
-    {difficultyLabels[difficulty]}
-    {problemCode}
-    {credit.author}
-    {progress.status === 'solved' ? formatTime(progress.time) : null}
-  </div>;
+  const { date, credit } = problem;
+  const [isPending, startTransition] = useTransition();
+  const setView = useSetAtom(viewAtom);
+  const goto = () => {
+    startTransition(() => setView({ route: 'specific', date }));
+  };
+  
+  return <button onClick={goto} disabled={isPending}>
+    <h2>{formatDateJa(date)}</h2>
+    <CreditDisplay credit={credit} />
+    <RecordDisplay date={date} />
+  </button>;
+};
+
+const RecordDisplay: FC<{ date: string; }> = ({ date }) => {
+  const record = useRecordValue(date);
+  if (record == null) return null;
+  return <p className='record'>
+    <span>🕓{formatTime(record.time)}</span>
+  </p>;
 };

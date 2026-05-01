@@ -1,6 +1,6 @@
 main {
   width: 100%;
-  padding: 1em;
+  padding: 0 1em;
 }
 
 
@@ -99,6 +99,9 @@ dialog.problem-info > nav > a {
   border: unset;
 }
 
+dialog.problem-info > nav > button:disabled {
+  background-color: var(--border-color);
+}
 
 
 
@@ -129,3 +132,36 @@ dialog.result > button {
   cursor: pointer;
 }
 
+
+
+main.archives ol {
+  padding: 0 1rem;
+  text-align: center;
+}
+
+main.archives li {
+  display: inline-block;
+  list-style: none;
+}
+
+main.archives li button {
+  border-radius: 1rem;
+  border: 2px solid var(--text-color);
+  padding: 1rem;
+  width: 16em;
+
+  color: var(--text-color);
+  background-color: var(--bg-color);
+
+  font-size: 1rem;  
+
+  cursor: pointer;
+}
+
+main.archives li button * {
+  margin: 1rem 0;
+}
+
+main.archives li button:disabled {
+  background-color: var(--border-color);
+}

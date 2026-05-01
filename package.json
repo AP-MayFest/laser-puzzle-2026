@@ -28,6 +28,7 @@
     "globals": "^17.5.0",
     "jotai": "^2.19.1",
     "jotai-family": "^1.0.1",
+    "jotai-location": "^0.6.2",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.2",
     "vite": "^8.0.10",

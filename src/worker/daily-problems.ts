@@ -17,7 +17,7 @@ const DAILY_PROBLEMS: readonly Problem[] = [
         problemCode: '4x4-1bGS5bRE4aGW15aRE4bGW5bRN-c6g2',
         difficulty: 'easy',
         credit: {
-            author: '？？',
+            author: 'hatena',
         },
     },
 ];

@@ -1,16 +1,20 @@
-import { useCallback, useEffect, useRef, type FC } from 'react';
+import { useCallback, useEffect, useRef, useTransition, type FC } from 'react';
 import type { Credit, Problem, Source } from './api.ts';
 import { useRecordValue } from './record.ts';
 import { copyText, countDownText, createShareText, formatDateJa, formatTime, tutorialHref } from './utils.ts';
+import { useSetAtom } from 'jotai';
+import { viewAtom } from './state/routing.ts';
 
 export const ProblemInfoDialog: FC<{
   problem: Problem;
   open: boolean;
   today: boolean;
   onPlay: () => void;
-  onArchives: () => void;
-}> = ({ problem, open, onPlay, onArchives, today }) => {
+}> = ({ problem, open, onPlay, today }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const setView = useSetAtom(viewAtom);
+  const [isPending, startTransition] = useTransition();
   
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -43,12 +47,12 @@ export const ProblemInfoDialog: FC<{
     <nav>
       <a href={tutorialHref()}>ルール</a>
       <button type="button" onClick={onPlay} autoFocus>プレイ</button>
-      <button type="button" onClick={onArchives} disabled>過去問</button>
+      <button type="button" onClick={() => startTransition(() => { setView({ route: 'archives' }); })} disabled={isPending}>過去問</button>
     </nav>
   </dialog>;
 };
 
-const CreditDisplay: FC<{ credit: Credit }> = ({ credit }) => {
+export const CreditDisplay: FC<{ credit: Credit }> = ({ credit }) => {
   return <p className='credit'>
     <span>作者：{credit.author}</span><br/>
     {credit.source && renderSource(credit.source)}
