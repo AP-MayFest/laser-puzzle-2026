@@ -41,6 +41,8 @@ export const ProblemInfoDialog: FC<{
     <p>{today ? '五月祭' + countDownText(problem.date) : formatDateJa(problem.date)}</p>
     
     <CreditDisplay credit={problem.credit} />
+    
+    { today || <p><a href={import.meta.env.BASE_URL + '/daily.html'} onClick={(ev) => {ev.preventDefault(); startTransition(() => {setView({ route: 'today' })})}}>今日の問題はこちら</a></p> }
 
     <RecordDisplay date={problem.date} today={today} />
 
