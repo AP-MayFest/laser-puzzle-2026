@@ -25,6 +25,7 @@ export const ProblemInfoDialog: FC<{
   }, [open]);
 
   return <dialog
+    className='problem-info'
     ref={dialogRef}
     onCancel={(event) => {
       event.preventDefault();
@@ -41,14 +42,14 @@ export const ProblemInfoDialog: FC<{
 
     <nav>
       <a href={tutorialHref()}>ルール</a>
-      <button type="button" onClick={onPlay}>プレイ</button>
+      <button type="button" onClick={onPlay} autoFocus>プレイ</button>
       <button type="button" onClick={onArchives}>過去問</button>
     </nav>
   </dialog>;
 };
 
 const CreditDisplay: FC<{ credit: Credit }> = ({ credit }) => {
-  return <p>
+  return <p className='credit'>
     <span>作者：{credit.author}</span><br/>
     {renderSource(credit)}
   </p>;
@@ -88,7 +89,7 @@ const RecordDisplay: FC<{ date: string; today: boolean }> = ({ date, today }) =>
   
   if (record == null) return null;
 
-  return <p>
+  return <p className='record'>
     <span>🕓{formatTime(record.time)}</span>
     <button onClick={handleCopy} disabled={!today}>共有</button>
   </p>;

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type FC } from 'react';
+import { useCallback, useEffect, useMemo, useState, useTransition, type FC } from 'react';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { archivedProblem, dailyProblem } from './state/problems.ts';
 import type { Problem } from './api.ts';
@@ -49,11 +49,12 @@ const DailyProblemFrame: FC<{
 }> = ({ problem, today = false }) => {
   const [overlay, setOverlay] = useState(true);
   const setView = useSetView();
+  const [, startTransition] = useTransition();
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   if (!today) useVolatileMetadata(problem.date);
 
-  return <main>
+  return <main className='player'>
     { overlay || <Puzzle problem={problem} /> }
     
     <ProblemInfoDialog
@@ -61,7 +62,7 @@ const DailyProblemFrame: FC<{
       open={overlay}
       today={today}
       onPlay={() => setOverlay(false)}
-      onArchives={() => setView('archives')}
+      onArchives={() => startTransition(() => { setView('archives') })}
     />
 
     <ResultDialog today={today}/>

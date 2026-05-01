@@ -35,6 +35,7 @@ export const ResultDialog: FC<{ today?: boolean }> = ({ today = false }) => {
 
   if (res == null) return (
     <dialog
+      className='result'
       ref={dialogRef}
       closedby='any'
       onCancel={() => {
@@ -46,6 +47,7 @@ export const ResultDialog: FC<{ today?: boolean }> = ({ today = false }) => {
   const {date, time} = res;
 
   return <dialog
+    className='result'
     ref={dialogRef}
     closedby='any'
     onCancel={() => {
@@ -54,10 +56,10 @@ export const ResultDialog: FC<{ today?: boolean }> = ({ today = false }) => {
     <h2>{formatDateJa(date)}</h2>
     
     <p className='record'>
-      <span>🕓{formatTime(time)}でクリア！</span>
+      <span>🕑{formatTime(time)}でクリア！</span>
     </p>
     { today && <p className='countdown'>五月祭{countDownText(date)}</p>}
 
-    <button onClick={handleCopy}>共有</button>
+    { today && <button onClick={handleCopy}>共有</button> }
   </dialog>;
 };

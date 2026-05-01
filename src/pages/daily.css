@@ -1,9 +1,16 @@
 main {
+  width: 100%;
+  padding: 1em;
+}
+
+
+
+main.player {
     width: 100svw;
     height: 100svh;
 }
 
-main > button {
+main.player > button {
     display: block;
     width: 5em;
 
@@ -18,14 +25,107 @@ main > button {
     cursor: pointer;
 }
 
-main > .open-info {
+main.player > .open-info {
     position: absolute;
     bottom: 1rem;
     left: 1rem;
 }
 
-main > .reset {
+main.player > .reset {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
 }
+
+
+dialog.problem-info {
+    border-radius: 1rem;
+    border: 2px solid var(--text-color);
+
+    color: var(--text-color);
+    background-color: var(--bg-color);
+
+    text-align: center;
+}
+
+dialog.problem-info::backdrop {
+    background-color: var(--bg-color);
+}
+
+dialog.problem-info > .credit {
+  display: inline-block;
+  margin: 0;
+  text-align: left;
+}
+
+dialog.problem-info > .record > button {
+  display: inline-block;
+  margin-inline-start: 1em;
+  border: 2px solid var(--text-color);
+  border-radius: 0.5em;
+  padding: 0 0.5em;
+
+  color: var(--text-color);
+  background-color: var(--bg-color);
+
+  font-size: 1rem;
+  line-height: 2;
+
+  cursor: pointer;
+}
+
+
+dialog.problem-info > nav {
+    margin: 1em 0;
+}
+
+dialog.problem-info > nav > * {
+  display: inline-block;
+  margin: 0 0.5em;
+  border: 2px solid var(--text-color);
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+
+  color: var(--text-color);
+  background-color: var(--bg-color);
+
+  font-size: 1rem;
+  line-height: 2;
+
+  cursor: pointer;
+}
+
+dialog.problem-info > nav > a {
+  border: unset;
+}
+
+
+
+
+
+dialog.result {
+    border-radius: 1rem;
+    border: 2px solid var(--text-color);
+
+    color: var(--text-color);
+    background-color: var(--bg-color);
+
+    text-align: center;
+}
+
+dialog.result > button {
+  display: inline-block;
+  margin-inline-start: 1em;
+  border: 2px solid var(--text-color);
+  border-radius: 0.5em;
+  padding: 0 0.5em;
+
+  color: var(--text-color);
+  background-color: var(--bg-color);
+
+  font-size: 1rem;
+  line-height: 2;
+
+  cursor: pointer;
+}
+

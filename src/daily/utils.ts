@@ -46,7 +46,7 @@ export const countDownText = (date: string): string => {
 
   const currentDate = Date.UTC(year, month - 1, day);
   const days = Math.ceil((eventDate - currentDate) / 86_400_000);
-  if (days > 0) return `まであと${days}日`;
+  if (days > 0) return `まであと${days}日📆`;
   if (days === 0) return '1日目';
   if (days === -1) return '2日目';
   return `から${-1 - days}日後`;
