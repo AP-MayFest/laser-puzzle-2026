@@ -1,4 +1,4 @@
-export type Difficulty = 'easy' | 'medium' | 'hard';
+export type Difficulty = 'very easy' | 'easy' | 'medium' | 'hard' | 'very hard';
 
 export interface Credit {
     author: string;

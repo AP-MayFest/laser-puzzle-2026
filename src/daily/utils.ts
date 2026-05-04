@@ -1,12 +1,4 @@
-import type {Difficulty} from './api.ts';
-
 const TOKYO_TIME_ZONE = 'Asia/Tokyo';
-
-export const difficultyLabels: Record<Difficulty, string> = {
-  easy: '初級',
-  medium: '中級',
-  hard: '上級',
-};
 
 export const getTokyoDateString = (now: Date = new Date()): string => {
   const formatter = new Intl.DateTimeFormat('en-CA', {

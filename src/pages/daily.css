@@ -57,6 +57,16 @@ dialog.problem-info > * {
   margin: 1rem 0;
 }
 
+dialog.problem-info > .difficulty {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.5rem;
+
+  margin: 0;
+  
+  font-size: 0.75rem;
+}
+
 dialog.problem-info > .credit {
   display: inline-block;
   margin: 0;
@@ -156,6 +166,9 @@ main.archives li {
 }
 
 main.archives li button {
+  display: inline-block;
+  position: relative;
+
   border-radius: 1rem;
   border: 2px solid var(--text-color);
   padding: 1rem;
@@ -175,4 +188,14 @@ main.archives li button > * {
 
 main.archives li button:disabled {
   background-color: var(--border-color);
+}
+
+main.archives .difficulty {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.75rem;
+
+  margin: 0;
+  
+  font-size: 0.75rem;
 }

@@ -36,6 +36,7 @@ const ArchivedProblem: FC<{ problem: Problem}> = ({ problem }) => {
   return <button onClick={goto} disabled={isPending}>
     <h2>{formatDateJa(date)}</h2>
     <CreditDisplay credit={credit} />
+    <p className='difficulty'>難易度：{ problem.difficulty }</p>
     <RecordDisplay date={date} />
   </button>;
 };

@@ -19,7 +19,7 @@ const DAILY_PROBLEMS: readonly Problem[] = [
     {
         date: '2026-05-03',
         problemCode: '5x5-2bGS7fPS2aGS4cSE4aRW3fPS7cNE4fSW1bRW2h1cNE1fSW1cNW-d2',
-        difficulty: 'easy',
+        difficulty: 'very easy',
         credit: { author: 'miso' },
     },
     {
@@ -31,7 +31,7 @@ const DAILY_PROBLEMS: readonly Problem[] = [
     {
         date: '2026-05-05',
         problemCode: '3x3-5bRE3aGW8aRE3bGW-c6d1',
-        difficulty: 'easy',
+        difficulty: 'very easy',
         credit: { author: 'hatena' },
     },
     {
@@ -39,6 +39,48 @@ const DAILY_PROBLEMS: readonly Problem[] = [
         problemCode: '5x5-3bGS1bGS7fPS8aRW10aGE3fPE5fPS7bRN1bRN-d0g2',
         difficulty: 'medium',
         credit: { author: 'daifuku' },
+    },
+    {
+        date: '2026-05-07',
+        problemCode: '5x5-23aRE1gNW11bRE1gSE2cNW5bRN-c4g1',
+        difficulty: 'medium',
+        credit: { author: 'miso' },
+    },
+    // {
+    //     date: '2026-05-08',
+    //     problemCode: '7x7-3bGS1bGS1bGS1bGS1bGS10bRW9bRW9bRW9bRW9bRW11aRN1aGN-c0d0e5fP0fS0fD3g4',
+    //     difficulty: 'hard',
+    //     credit: { author: 'hatena' },
+    // },
+    {
+        date: '2026-05-09',
+        problemCode: '5x5-7bRE8aRE5bGW4cNW4bGE5aGW8bRW-c0e2g1',
+        difficulty: 'hard',
+        credit: { author: 'daifuku' },
+    },
+    {
+        date: '2026-05-10',
+        problemCode: '7x7-3bGS2bRS22bGE4fDE1gNE3bRW1bGE8bRW13aRN2aGN-c0d0e2fP1fS1fD1g1',
+        difficulty: 'very hard',
+        credit: { author: '2025年度工学博覧会光班' },
+    },
+    {
+        date: '2026-05-11',
+        problemCode: '5x3-1bGS1bGS1bGS1bGS8aGW10cNE1cNW1cNE1cNW-d1fD2g3',
+        difficulty: 'hard',
+        credit: { author: 'TOGASHI' },
+    },
+    {
+        date: '2026-05-12',
+        problemCode: '7x7-9bGE18bRE4fDE25aRN5aGN2bGE12bRN3bRN-c0d0e1g2',
+        difficulty: 'very hard',
+        credit: { author: '2024年度工学博覧会光班', source: { name: '問題4（上級）', url: 'https://booth.pm/ja/items/5726657' } },
+    },
+    {
+        date: '2026-05-13',
+        problemCode: '7x7-2bRS4bGS3bGE4fPE4bRW5fSE6cNE1cNW4cSW1cNW6fDE6cSE1cSW4cSE1cSW11bGE3aRN2aGN3bGW3bRN4bRN-c0d0e3fD1g4',
+        difficulty: 'hard',
+        credit: { author: 'hatena' },
     },
 ];
 

@@ -44,6 +44,8 @@ export const ProblemInfoDialog: FC<{
     
     <CreditDisplay credit={problem.credit} />
     
+    <p className='difficulty'>難易度：{ problem.difficulty }</p>
+    
     { today || <p><a href={import.meta.env.BASE_URL + '/daily.html'} onClick={(ev) => {ev.preventDefault(); startTransition(() => {setView({ route: 'today' });});}}>今日の問題はこちら</a></p> }
 
     <RecordDisplay date={problem.date} today={today} />
