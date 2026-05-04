@@ -34,7 +34,7 @@ export const ResultDialog: FC<{ today?: boolean }> = ({ today = false }) => {
     if (res == null || !today) return;
     await copyText(createShareText(res.date, res.time));
     submitNotification({ category: 'feedback', message: '共有テキストをコピーしました', closeMethod: 'auto' });
-  }, [res, today]);
+  }, [res, today, submitNotification]);
 
   const handleClose = () => setRes(undefined);
 

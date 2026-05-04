@@ -85,7 +85,7 @@ const RecordDisplay: FC<{ date: string; today: boolean }> = ({ date, today }) =>
     if (record == null) return;
     await copyText(createShareText(date, record.time));
     submitNotification({ category: 'feedback', message: '共有テキストをコピーしました', closeMethod: 'auto' });
-  }, [date, record]);
+  }, [date, record, submitNotification]);
   
   if (record == null) return null;
 
