@@ -2,22 +2,23 @@ import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { useCallback } from 'react';
 
 
-type Category = 'info' | 'warn' | 'feedback';
+export type Category = 'info' | 'warn' | 'feedback';
 
 type CloseMethod = 'button' | 'auto';
 
 export interface Notification {
+  id: number;
   category: Category;
   message: string;
-  close: CloseMethod;
+  closeMethod: CloseMethod;
 }
 
 
 const notifications = atom<Notification[]>([]);
 
-export const useSubmitNotification = (): (notification: Notification) => void => {
+export const useSubmitNotification = (): (notification: Omit<Notification, 'id'>) => void => {
   const setter = useSetAtom(notifications);
-  return useCallback((notification: Notification) => setter(ns => ns.concat(notification)), [setter]);
+  return useCallback((notification: Omit<Notification, 'id'>) => setter(ns => [Object.assign({id: ns.length}, notification)].concat(...ns)), [setter]);
 };
 
 export const useCloseNotification = (): (ref: Notification) => void => {

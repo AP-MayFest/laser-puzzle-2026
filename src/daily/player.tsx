@@ -5,6 +5,7 @@ import type { Problem } from './api.ts';
 import { decodeProblem } from '../puzzle/problem.ts';
 import { Runtime } from '../puzzle/runtime.ts';
 import {
+  isSolvingFamily,
   useGetHistorySnapshot,
   useProgress,
   useSetHistory,
@@ -48,12 +49,16 @@ const DailyProblemFrame: FC<{
   today?: boolean;
 }> = ({ problem, today = false }) => {
   const [overlay, setOverlay] = useState(true);
+  const isSolving = useAtomValue(isSolvingFamily(problem.date));
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   if (!today) useVolatileMetadata(problem.date);
 
   return <main className='player'>
-    { overlay || <Puzzle problem={problem} /> }
+    { (overlay && isSolving) || <Puzzle problem={problem} /> }
+
+    <button onClick={() => setOverlay(true)} className='open-info'>INFO</button>
+    <ResetButton />
     
     <ProblemInfoDialog
       problem={problem}
@@ -63,9 +68,6 @@ const DailyProblemFrame: FC<{
     />
 
     <ResultDialog today={today}/>
-
-    <button onClick={() => setOverlay(true)} className='open-info'>INFO</button>
-    <ResetButton />
   </main>;
 };
 

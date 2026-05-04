@@ -3,10 +3,12 @@ import { viewAtom } from './state/routing';
 import { ArchivePlayer, DailyPlayer } from './player';
 import { Archives } from './archives';
 import { useAtomValue } from 'jotai';
+import { NotificationDisplay } from './notification';
 
 export function DailyApp() {
     return <Suspense fallback={<main>読み込み中...</main>}>
         <DailyRoute />
+        <NotificationDisplay />
     </Suspense>;
 }
 

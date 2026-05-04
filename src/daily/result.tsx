@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, type FC } from 'react';
 import { atom, useAtom } from 'jotai';
 import { copyText, countDownText, createShareText, formatDateJa, formatTime } from './utils.ts';
+import { useSubmitNotification } from './state/notification.ts';
 
 
 interface ResultData {
@@ -12,6 +13,7 @@ export const resultData = atom<ResultData>();
 
 export const ResultDialog: FC<{ today?: boolean }> = ({ today = false }) => {
   const [res, setRes] = useAtom(resultData);
+  const submitNotification = useSubmitNotification();
   
   const dialogRef = useRef<HTMLDialogElement>(null);
   const open = res != null;
@@ -31,6 +33,7 @@ export const ResultDialog: FC<{ today?: boolean }> = ({ today = false }) => {
   const handleCopy = useCallback(async () => {
     if (res == null || !today) return;
     await copyText(createShareText(res.date, res.time));
+    submitNotification({ category: 'feedback', message: '共有テキストをコピーしました', closeMethod: 'auto' });
   }, [res, today]);
 
   const handleClose = () => setRes(undefined);

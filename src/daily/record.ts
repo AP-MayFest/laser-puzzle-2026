@@ -24,6 +24,11 @@ const metadataFamily = atomFamily((date: string) => atomWithStorage<DailyPlayMet
   { getOnInit: true },
 ));
 
+export const isSolvingFamily = atomFamily((date: string) => atom<boolean>(
+  get => get(metadataFamily(date)).progress.status === 'solving'
+));
+
+
 export const useSetHistory = (date: string): (history: Operation[]) => void => {
   const setter = useSetAtom(metadataFamily(date));
   return useCallback((history: Operation[]) => setter(v => ({ ...v, history: Array.from(history) })), [setter]);
@@ -54,6 +59,7 @@ export const useVolatileMetadata = (date: string) => {
     };
     window.addEventListener('pagehide', listener);
     return () => {
+      listener();
       window.removeEventListener('pagehide', listener);
     };
   }, [setter]);

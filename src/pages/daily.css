@@ -49,7 +49,7 @@ dialog.problem-info {
     text-align: center;
 }
 
-dialog.problem-info::backdrop {
+dialog.problem-info.solving::backdrop {
     background-color: var(--bg-color);
 }
 
@@ -138,14 +138,20 @@ dialog.result > button {
 }
 
 
+main.archives {
+    max-width: 54rem;
+    margin-inline: auto;
+    padding: 1em;
+}
 
 main.archives ol {
-  padding: 0 1rem;
+  padding: 0;
   text-align: center;
 }
 
 main.archives li {
   display: inline-block;
+  margin: 1rem 0.5rem;
   list-style: none;
 }
 

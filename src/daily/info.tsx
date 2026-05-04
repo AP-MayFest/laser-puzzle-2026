@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useTransition, type FC } from 'react';
 import type { Credit, Problem, Source } from './api.ts';
-import { useRecordValue } from './record.ts';
+import { isSolvingFamily, useRecordValue } from './record.ts';
 import { copyText, countDownText, createShareText, formatDateJa, formatTime, tutorialHref } from './utils.ts';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { viewAtom } from './state/routing.ts';
+import { useSubmitNotification } from './state/notification.ts';
 
 export const ProblemInfoDialog: FC<{
   problem: Problem;
@@ -14,6 +15,7 @@ export const ProblemInfoDialog: FC<{
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const setView = useSetAtom(viewAtom);
+  const isSolving = useAtomValue(isSolvingFamily(problem.date));
   const [isPending, startTransition] = useTransition();
   
   useEffect(() => {
@@ -29,7 +31,7 @@ export const ProblemInfoDialog: FC<{
   }, [open]);
 
   return <dialog
-    className='problem-info'
+    className={isSolving ? 'problem-info solving' : 'problem-info'}
     ref={dialogRef}
     onCancel={(event) => {
       event.preventDefault();
@@ -42,7 +44,7 @@ export const ProblemInfoDialog: FC<{
     
     <CreditDisplay credit={problem.credit} />
     
-    { today || <p><a href={import.meta.env.BASE_URL + '/daily.html'} onClick={(ev) => {ev.preventDefault(); startTransition(() => {setView({ route: 'today' })})}}>今日の問題はこちら</a></p> }
+    { today || <p><a href={import.meta.env.BASE_URL + '/daily.html'} onClick={(ev) => {ev.preventDefault(); startTransition(() => {setView({ route: 'today' });});}}>今日の問題はこちら</a></p> }
 
     <RecordDisplay date={problem.date} today={today} />
 
@@ -77,9 +79,12 @@ function renderSource(source: Source) {
 
 const RecordDisplay: FC<{ date: string; today: boolean }> = ({ date, today }) => {
   const record = useRecordValue(date);
+  const submitNotification = useSubmitNotification();
+
   const handleCopy = useCallback(async () => {
     if (record == null) return;
     await copyText(createShareText(date, record.time));
+    submitNotification({ category: 'feedback', message: '共有テキストをコピーしました', closeMethod: 'auto' });
   }, [date, record]);
   
   if (record == null) return null;
