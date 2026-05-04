@@ -271,14 +271,14 @@ export class Renderer {
       ctx.strokeStyle = ctx.fillStyle = l1 === '650' ? this.colorpalette.red : this.colorpalette.green;
       ctx.lineCap = 'butt';
 
-      if (lit) ctx.fillRect(0, 0, 0.5, 0.5);
+      if (lit) ctx.fillRect(0, -0.5, 0.5, 1);
       else {
         ctx.lineWidth = lineWidth;
         ctx.beginPath();
-        ctx.moveTo(lineWidth / 2, 0);
+        ctx.moveTo(lineWidth / 2, -0.25);
         ctx.lineTo(lineWidth / 2, 0.5 - lineWidth / 2);
         ctx.lineTo(0.5 - lineWidth / 2, 0.5 - lineWidth / 2);
-        ctx.lineTo(0.5 - lineWidth / 2, 0);
+        ctx.lineTo(0.5 - lineWidth / 2, -0.25);
         ctx.stroke();
       }
     }
@@ -312,6 +312,10 @@ export class Renderer {
 
     ctx.fillStyle = this.colorpalette.accent;
     ctx.fillRect(-0.5, -0.5, 1, 1);
+    
+    ctx.lineWidth = 0.5 ** 6;
+    ctx.strokeStyle = this.colorpalette.accent;
+    ctx.strokeRect(-0.5, -0.5, 1, 1);
 
     ctx.restore();
   }
