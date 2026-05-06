@@ -2,6 +2,8 @@
   position: absolute;
   top: 0;
   right: 0;
+
+  overflow-x: hidden;
 }
 
 .notification {
@@ -12,10 +14,19 @@
   color: var(--text-color);
   background-color: var(--bg-color);
   z-index: 100;
+
+  animation: slidein 0.2s;
+  animation-timing-function: ease;
 }
 
 .notification > p {
   margin: 0;
   font-size: 1rem;
   line-height: 2;
+}
+
+@keyframes slidein {
+  from {
+    transform: translate(100%, 0);
+  }
 }
