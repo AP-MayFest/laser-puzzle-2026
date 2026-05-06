@@ -149,7 +149,7 @@ dialog.result > button {
 
 
 main.archives {
-    max-width: 54rem;
+    max-width: 60rem;
     margin-inline: auto;
     padding: 1em;
 }
@@ -163,6 +163,7 @@ main.archives li {
   display: inline-block;
   margin: 1rem 0.5rem;
   list-style: none;
+  vertical-align: top;
 }
 
 main.archives li button {
@@ -172,7 +173,7 @@ main.archives li button {
   border-radius: 1rem;
   border: 2px solid var(--text-color);
   padding: 1rem;
-  width: 16em;
+  width: 18em;
 
   color: var(--text-color);
   background-color: var(--bg-color);
