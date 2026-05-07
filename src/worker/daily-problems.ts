@@ -43,14 +43,14 @@ const DAILY_PROBLEMS: readonly Problem[] = [
     {
         date: '2026-05-07',
         problemCode: '5x5-1bRS2bGS2bGS13h18aRN4aGN5bRN-c0e2g1',
-        difficulty: 'medium',
+        difficulty: 'hard',
         credit: { author: 'daifuku' },
     },
     {
         date: '2026-05-08',
-        problemCode: '5x5-23aRE1gNW11bRE1gNW2cNW5bRN-c4g1',
-        difficulty: 'easy',
-        credit: { author: 'miso' },
+        problemCode: '7x7-2bGS1bRS1bRGS1bGS1bRS4aRE6aGW24fDE-c0d0e3fP1fS1g2',
+        difficulty: 'medium',
+        credit: { author: 'jimmy' },
     },
     {
         date: '2026-05-09',
@@ -61,26 +61,26 @@ const DAILY_PROBLEMS: readonly Problem[] = [
     {
         date: '2026-05-10',
         problemCode: '5x5-8h4h2bRE6bGW2aRE4aGW2bRE6bGW10bGN2bRN-c0d0e2fP1fS1fD1g2',
-        difficulty: 'hard',
+        difficulty: 'very hard',
         credit: { author: 'riku' },
     },
     {
         date: '2026-05-11',
         problemCode: '5x5-3bGS12aGE6bGE6bGW18bGN-c3fD3g3',
-        difficulty: 'hard',
+        difficulty: 'very hard',
         credit: { author: 'miso' },
     },
     {
         date: '2026-05-13',
-        problemCode: '7x7-9bGE18bRE4fDE25aRN5aGN2bGE12bRN3bRN-c0d0e1g2',
-        difficulty: 'very hard',
-        credit: { author: '2024年度工学博覧会光班', source: { name: '問題4（上級）', url: 'https://booth.pm/ja/items/5726657' } },
-    },
-    {
-        date: '2026-05-14',
         problemCode: '7x7-2bRS4bGS3bGE4fPE4bRW5fSE6cNE1cNW4cSW1cNW6fDE6cSE1cSW4cSE1cSW11bGE3aRN2aGN3bGW3bRN4bRN-c0d0e3fD1g4',
         difficulty: 'hard',
         credit: { author: 'hatena' },
+    },
+    {
+        date: '2026-05-14',
+        problemCode: '7x7-9bGE18bRE4fDE25aRN5aGN2bGE12bRN3bRN-c0d0e1g2',
+        difficulty: 'very hard',
+        credit: { author: '2024年度工学博覧会光班', source: { name: '問題4（上級）', url: 'https://booth.pm/ja/items/5726657' } },
     },
 ];
 
