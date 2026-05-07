@@ -37,19 +37,19 @@ const DAILY_PROBLEMS: readonly Problem[] = [
     {
         date: '2026-05-06',
         problemCode: '5x5-3bGS1bGS7fPS8aRW10aGE3fPE5fPS7bRN1bRN-d0g2',
-        difficulty: 'medium',
+        difficulty: 'easy',
         credit: { author: 'daifuku' },
     },
     {
         date: '2026-05-07',
         problemCode: '5x5-1bRS2bGS2bGS13h18aRN4aGN5bRN-c0e2g1',
-        difficulty: 'hard',
+        difficulty: 'medium',
         credit: { author: 'daifuku' },
     },
     {
         date: '2026-05-08',
         problemCode: '7x7-2bGS1bRS1bRGS1bGS1bRS4aRE6aGW24fDE-c0d0e2g2',
-        difficulty: 'medium',
+        difficulty: 'hard',
         credit: { author: 'jimmy' },
     },
     {
