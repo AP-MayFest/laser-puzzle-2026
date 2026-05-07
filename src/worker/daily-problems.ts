@@ -48,7 +48,7 @@ const DAILY_PROBLEMS: readonly Problem[] = [
     },
     {
         date: '2026-05-08',
-        problemCode: '7x7-2bGS1bRS1bRGS1bGS1bRS4aRE6aGW24fDE-c0d0e3fP1fS1g2',
+        problemCode: '7x7-2bGS1bRS1bRGS1bGS1bRS4aRE6aGW24fDE-c0d0e2fP1fS1g2',
         difficulty: 'medium',
         credit: { author: 'jimmy' },
     },
