@@ -62,7 +62,7 @@ const DAILY_PROBLEMS: readonly Problem[] = [
         date: '2026-05-10',
         problemCode: '5x5-8h4h2bRE6bGW2aRE4aGW2bRE6bGW10bGN2bRN-c0d0e2fP1fS1fD1g2',
         difficulty: 'very hard',
-        credit: { author: 'riku' },
+        credit: { author: 'jimmy' },
     },
     {
         date: '2026-05-11',
