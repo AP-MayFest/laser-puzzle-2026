@@ -71,6 +71,12 @@ const DAILY_PROBLEMS: readonly Problem[] = [
         credit: { author: 'miso' },
     },
     {
+        date: '2026-05-12',
+        problemCode: '5x5-3bRGS13aRE2h6gSE3bRGW5aGN-c0e1g1',
+        difficulty: 'hard',
+        credit: { author: 'miso' },
+    },
+    {
         date: '2026-05-13',
         problemCode: '7x7-2bRS4bGS3bGE4fPE4bRW5fSE6cNE1cNW4cSW1cNW6fDE6cSE1cSW4cSE1cSW11bGE3aRN2aGN3bGW3bRN4bRN-c0d0e3fD1g4',
         difficulty: 'hard',
