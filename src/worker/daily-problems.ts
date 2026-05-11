@@ -73,7 +73,7 @@ const DAILY_PROBLEMS: readonly Problem[] = [
     {
         date: '2026-05-12',
         problemCode: '5x5-3bRGS13aRE2h6gSE3bRGW5aGN-c0e1g1',
-        difficulty: 'hard',
+        difficulty: 'medium',
         credit: { author: 'miso' },
     },
     {
@@ -84,9 +84,27 @@ const DAILY_PROBLEMS: readonly Problem[] = [
     },
     {
         date: '2026-05-14',
+        problemCode: '7x3-2bGS2bRGS5bGE1fSE9aRE3dNW3aGW9fSE1bRW5bRGN2bRN-d0fD0g0',
+        difficulty: 'hard',
+        credit: { author: 'daifuku' },
+    },
+    {
+        date: '2026-05-15',
         problemCode: '7x7-9bGE18bRE4fDE25aRN5aGN2bGE12bRN3bRN-c0d0e1g2',
         difficulty: 'very hard',
         credit: { author: '2024年度工学博覧会光班', source: { name: '問題4（上級）', url: 'https://booth.pm/ja/items/5726657' } },
+    },
+    // {
+    //     date: '2026-05-16',
+    //     problemCode: '',
+    //     difficulty: 'medium',
+    //     credit: { author: '' },
+    // },
+    {
+        date: '2026-05-17',
+        problemCode: '5x5-7bRE8aRE5bGW4cNW4bGE5aGW8bRW-c0e2g1',
+        difficulty: 'medium',
+        credit: { author: 'daifuku' },
     },
 ];
 
