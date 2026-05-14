@@ -90,9 +90,9 @@ const DAILY_PROBLEMS: readonly Problem[] = [
     },
     {
         date: '2026-05-15',
-        problemCode: '7x7-9bGE18bRE4fDE25aRN5aGN2bGE12bRN3bRN-c0d0e1g2',
+        problemCode: '7x7-10h9h8bGE1fSE2h3dSW3bRGE1fPE2h3gNE1aRW2bRE1fSE2h3gNE1aGW3h9h-c0d0e1g3',
         difficulty: 'very hard',
-        credit: { author: '2024年度工学博覧会光班', source: { name: '問題4（上級）', url: 'https://booth.pm/ja/items/5726657' } },
+        credit: { author: 'jimmy' },
     },
     // {
     //     date: '2026-05-16',
