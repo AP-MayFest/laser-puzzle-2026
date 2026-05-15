@@ -27,7 +27,7 @@ export const viewAtom = atom<View, [View], undefined>(
     return { route: 'today' };
   },
   (_, set, newView) => {
-    if (newView.route === 'today') set(locationAtom, prev => ({ ...prev, searchParams: undefined }));
+    if (newView.route === 'today') set(locationAtom, prev => ({ ...prev, searchParams: new URLSearchParams('') }));
     else if (newView.route === 'archives') set(locationAtom, prev => ({ ...prev, searchParams: new URLSearchParams('archives') }));
     else set(locationAtom, prev => ({ ...prev, searchParams: new URLSearchParams('date=' + newView.date) }));
   },

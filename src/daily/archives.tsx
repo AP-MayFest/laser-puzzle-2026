@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useTransition, type FC } from 'react';
-import type { Problem } from './api.ts';
+import type { Problem } from '../puzzle/problems.ts';
 import { archivedProblems } from './state/problems.ts';
 import { useRecordValue } from './record.ts';
 import { formatDateJa, formatTime } from './utils.ts';

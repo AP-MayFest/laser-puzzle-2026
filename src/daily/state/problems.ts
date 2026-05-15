@@ -1,6 +1,7 @@
 import { atom } from 'jotai';
 import { atomFamily } from 'jotai-family';
-import { getArchivedProblems, getDailyProblem, type Problem } from '../api';
+import { getArchivedProblems, getDailyProblem } from '../api';
+import type { Problem } from '../../puzzle/problems';
 
 
 export type ProblemState =

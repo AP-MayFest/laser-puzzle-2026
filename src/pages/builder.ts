@@ -3,7 +3,7 @@ import './builder.css';
 import {type ReserveCount} from '../puzzle/reserve.ts';
 import {Runtime} from '../puzzle/runtime.ts';
 import {describeComponent} from '../puzzle/component-descriptor.ts';
-import {encodeProblem} from '../puzzle/problem.ts';
+import {encodeProblem} from '../puzzle/encoding.ts';
 
 class SizeObserver {
     width: number;

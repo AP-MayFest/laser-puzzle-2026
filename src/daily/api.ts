@@ -1,25 +1,4 @@
-export type Difficulty = 'very easy' | 'easy' | 'medium' | 'hard' | 'very hard';
-
-export interface Credit {
-    author: string;
-    source?: Source;
-}
-export interface Source {
-    name: string;
-     url?: string; 
-}
-
-export interface Problem {
-    date: string; // YYYY-MM-DD, Asia/Tokyo
-    problemCode: string;
-    difficulty: Difficulty;
-    credit: Credit;
-}
-
-export interface DailyArchivesResponse {
-    items: Problem[];
-}
-
+import type { DailyArchivesResponse, Problem } from '../puzzle/problems';
 
 interface Ok<T> {
     kind: 'ok';

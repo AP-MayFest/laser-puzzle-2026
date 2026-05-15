@@ -6,7 +6,7 @@ import {InteractionController} from './interaction.ts';
 import {NormalizedVec2, type Vec2} from '../utils/vec.ts';
 import {type ComponentDescriptor, createComponent} from './component-descriptor.ts';
 import {calcLayout, cellOnBoard, type DragLayout, type Layout, positioning} from './layout.ts';
-import type {Problem} from './problem.ts';
+import type {Problem} from './encoding.ts';
 
 export class Runtime {
   problem: Problem;

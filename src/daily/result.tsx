@@ -11,7 +11,7 @@ interface ResultData {
 
 export const resultData = atom<ResultData>();
 
-export const ResultDialog: FC<{ today?: boolean }> = ({ today = false }) => {
+export const ResultDialog: FC<{ today?: boolean, realBoard?: boolean }> = ({ today = false, realBoard = false }) => {
   const [res, setRes] = useAtom(resultData);
   const submitNotification = useSubmitNotification();
   
@@ -62,6 +62,8 @@ export const ResultDialog: FC<{ today?: boolean }> = ({ today = false }) => {
       <span>🕑{formatTime(time)}でクリア！</span>
     </p>
     { today && <p className='countdown'>五月祭{countDownText(date)}</p>}
+
+    { realBoard && <p>この問題は実物のボードでもプレイできます．<br/>ぜひ<a href='https://ap-mayfest.com/2026/#light-panel' target='_blank'>工学博覧会の光班</a>へお越しください．</p> }
 
     { today && <button onClick={handleCopy}>共有</button> }
     <button onClick={handleClose}>閉じる</button>

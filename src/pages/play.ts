@@ -1,5 +1,5 @@
 import './play.css';
-import {decodeProblem} from '../puzzle/problem.ts';
+import {decodeProblem} from '../puzzle/encoding.ts';
 import {Runtime} from '../puzzle/runtime.ts';
 
 class ResultDialog {

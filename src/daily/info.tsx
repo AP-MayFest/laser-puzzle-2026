@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useTransition, type FC } from 'react';
-import type { Credit, Problem, Source } from './api.ts';
+import type { Credit, Problem, Source } from '../puzzle/problems.ts';
 import { isSolvingFamily, useRecordValue } from './record.ts';
 import { copyText, countDownText, createShareText, formatDateJa, formatTime, tutorialHref } from './utils.ts';
 import { useAtomValue, useSetAtom } from 'jotai';
@@ -45,6 +45,8 @@ export const ProblemInfoDialog: FC<{
     <CreditDisplay credit={problem.credit} />
     
     <p className='difficulty'>難易度：{ problem.difficulty }</p>
+
+    { problem.realBoard && <p>この問題は実物のボードでもプレイできます．<br/>ぜひ<a href='https://ap-mayfest.com/2026/#light-panel' target='_blank'>工学博覧会の光班</a>へお越しください．</p> }
     
     { today || <p><a href={import.meta.env.BASE_URL + '/daily.html'} onClick={(ev) => {ev.preventDefault(); startTransition(() => {setView({ route: 'today' });});}}>今日の問題はこちら</a></p> }
 

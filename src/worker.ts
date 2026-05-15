@@ -1,5 +1,5 @@
-import type {DailyArchivesResponse, Problem} from './daily/api.ts';
-import {getArchivedDailyProblems, getTodayDailyProblem} from './worker/daily-problems.ts';
+import type {DailyArchivesResponse, Problem} from './puzzle/problems.ts';
+import {getArchivedDailyProblems, getTodayDailyProblem} from './puzzle/problems.ts';
 
 interface FetcherBinding {
     fetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;

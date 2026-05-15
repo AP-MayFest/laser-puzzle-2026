@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState, type FC } from 'react';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { archivedProblem, dailyProblem } from './state/problems.ts';
-import type { Problem } from './api.ts';
-import { decodeProblem } from '../puzzle/problem.ts';
+import type { Problem } from '../puzzle/problems.ts';
+import { decodeProblem } from '../puzzle/encoding.ts';
 import { Runtime } from '../puzzle/runtime.ts';
 import {
   isSolvingFamily,
@@ -67,7 +67,7 @@ const DailyProblemFrame: FC<{
       onPlay={() => setOverlay(false)}
     />
 
-    <ResultDialog today={today}/>
+    <ResultDialog today={today} realBoard={problem.realBoard} />
   </main>;
 };
 

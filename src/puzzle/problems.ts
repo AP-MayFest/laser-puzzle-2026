@@ -1,4 +1,26 @@
-import type {Problem} from '../daily/api.ts';
+export type Difficulty = 'very easy' | 'easy' | 'medium' | 'hard' | 'very hard';
+
+export interface Credit {
+    author: string;
+    source?: Source;
+}
+export interface Source {
+    name: string;
+     url?: string; 
+}
+
+export interface Problem {
+    date: string; // YYYY-MM-DD, Asia/Tokyo
+    problemCode: string;
+    difficulty: Difficulty;
+    credit: Credit;
+    realBoard: boolean;
+}
+
+export interface DailyArchivesResponse {
+    items: Problem[];
+}
+
 
 const TOKYO_TIME_ZONE = 'Asia/Tokyo';
 
@@ -9,102 +31,119 @@ const DAILY_PROBLEMS: readonly Problem[] = [
         problemCode: '5x5-4bRS5aGS2fSS4aRE1gNE2eNW1fSE1bGW8bRE1fPE1eNW7fPS7bGN-c0e1',
         difficulty: 'medium',
         credit: { author: 'ichi' },
+        realBoard: false,
     },
     {
         date: '2026-05-02',
         problemCode: '4x4-1bGS5bRE4aGW15aRE4bGW5bRN-c6g2',
         difficulty: 'easy',
         credit: { author: 'hatena' },
+        realBoard: true,
     },
     {
         date: '2026-05-03',
         problemCode: '5x5-2bGS7fPS2aGS4cSE4aRW3fPS7cNE4fSW1bRW2h1cNE1fSW1cNW-d2',
         difficulty: 'very easy',
         credit: { author: 'miso' },
+        realBoard: true,
     },
     {
         date: '2026-05-04',
         problemCode: '7x7-46dNW1dNE4aGW3bGE4aRN4bRW13bRN2bGN-c0d0e1fP1fS1fD1g2',
         difficulty: 'medium',
         credit: { author: '2025年度工学博覧会光班' },
+        realBoard: true,
     },
     {
         date: '2026-05-05',
         problemCode: '3x3-5bRE3aGW8aRE3bGW-c6d1',
         difficulty: 'very easy',
         credit: { author: 'hatena' },
+        realBoard: true,
     },
     {
         date: '2026-05-06',
         problemCode: '5x5-3bGS1bGS7fPS8aRW10aGE3fPE5fPS7bRN1bRN-d0g2',
         difficulty: 'easy',
         credit: { author: 'daifuku' },
+        realBoard: true,
     },
     {
         date: '2026-05-07',
         problemCode: '5x5-1bRS2bGS2bGS13h18aRN4aGN5bRN-c0e2g1',
         difficulty: 'medium',
         credit: { author: 'daifuku' },
+        realBoard: true,
     },
     {
         date: '2026-05-08',
         problemCode: '7x7-2bGS1bRS1bRGS1bGS1bRS4aRE6aGW24fDE-c0d0e2g2',
         difficulty: 'hard',
         credit: { author: 'jimmy' },
+        realBoard: false,
     },
     {
         date: '2026-05-09',
         problemCode: '5x3-1bGS1bGS1bGS1bGS8aGW10cNE1cNW1cNE1cNW-d1fD2g3',
         difficulty: 'hard',
         credit: { author: 'ナン' },
+        realBoard: false,
     },
     {
         date: '2026-05-10',
         problemCode: '5x5-8h4h2bRE6bGW2aRE4aGW2bRE6bGW10bGN2bRN-c0d0e2fP1fS1fD1g2',
         difficulty: 'very hard',
         credit: { author: 'jimmy' },
+        realBoard: true,
     },
     {
         date: '2026-05-11',
         problemCode: '5x5-3bGS12aGE6bGE6bGW18bGN-c3fD3g3',
         difficulty: 'very hard',
         credit: { author: 'miso' },
+        realBoard: false,
     },
     {
         date: '2026-05-12',
         problemCode: '5x5-3bRGS13aRE2h6gSE3bRGW5aGN-c0e1g1',
         difficulty: 'medium',
         credit: { author: 'miso' },
+        realBoard: true,
     },
     {
         date: '2026-05-13',
         problemCode: '7x7-2bRS4bGS3bGE4fPE4bRW5fSE6cNE1cNW4cSW1cNW6fDE6cSE1cSW4cSE1cSW11bGE3aRN2aGN3bGW3bRN4bRN-c0d0e3fD1g4',
         difficulty: 'hard',
         credit: { author: 'hatena' },
+        realBoard: false,
     },
     {
         date: '2026-05-14',
         problemCode: '7x3-2bGS2bRGS5bGE1fSE9aRE3dNW3aGW9fSE1bRW5bRGN2bRN-d0fD0g0',
         difficulty: 'hard',
         credit: { author: 'daifuku' },
+        realBoard: false,
     },
     {
         date: '2026-05-15',
         problemCode: '7x7-10h9h8bGE1fSE2h3dSW3bRGE1fPE2h3gNE1aRW2bRE1fSE2h3gNE1aGW3h9h-c0d0e1g3',
         difficulty: 'very hard',
         credit: { author: 'jimmy' },
+        realBoard: false,
     },
-    // {
-    //     date: '2026-05-16',
-    //     problemCode: '',
-    //     difficulty: 'medium',
-    //     credit: { author: '' },
-    // },
+    {
+        date: '2026-05-16',
+        problemCode: '5x5-2bGS10aGS2bRE6bRW4cSE12aRE8bGN-d5g2',
+        difficulty: 'medium',
+        credit: { author: 'miso' },
+        realBoard: true,
+    },
     {
         date: '2026-05-17',
         problemCode: '5x5-7bRE8aRE5bGW4cNW4bGE5aGW8bRW-c0e2g1',
         difficulty: 'medium',
         credit: { author: 'daifuku' },
+        realBoard: true,
     },
 ];
 
@@ -138,3 +177,6 @@ export function getTokyoDateString(now: Date = new Date()): string {
 
     return `${year}-${month}-${day}`;
 }
+
+
+export const Compilation: Problem[] = [];

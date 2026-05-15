@@ -2,7 +2,7 @@ import './404.css';
 
 import {Runtime} from '../puzzle/runtime.ts';
 import {Vec2} from '../utils/vec.ts';
-import type {Problem} from '../puzzle/problem.ts';
+import type {Problem} from '../puzzle/encoding.ts';
 
 const problem: Problem = {
     board: {
