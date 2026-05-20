@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState, type FC } from 'react';
+import { useCallback, useEffect, useMemo, useState, useTransition, type FC } from 'react';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
-import { archivedProblem, dailyProblem } from './state/problems.ts';
+import { archivedProblem } from './state/problems.ts';
 import type { Problem } from '../puzzle/problems.ts';
 import { decodeProblem } from '../puzzle/encoding.ts';
 import { Runtime } from '../puzzle/runtime.ts';
@@ -14,20 +14,17 @@ import {
 import { ProblemInfoDialog } from './info.tsx';
 import { ResultDialog } from './result.tsx';
 import { formatDateJa } from './utils.ts';
+import { viewAtom } from './state/routing.ts';
 
 export const DailyPlayer: FC = () => {
-  const p = useAtomValue(dailyProblem);
-
-  if (p.status === 'unknown error') {
-    return <main><p>今日の問題を読み込めませんでした。</p></main>;
-  }
-  if (p.status === 'not found') return <main><p>今日の問題は公開されていません。</p></main>;
-  const problem = p.problem;
-
-  return <DailyProblemFrame
-    problem={problem}
-    today
-  />;
+  const setView = useSetAtom(viewAtom);
+  const [, startTransition] = useTransition();
+  
+  return <main>
+    <p>2026年度のDaily Laser Puzzleは終了しました！</p>
+    <p>ぜひ<a href={import.meta.env.BASE_URL + '/daily.html?archives'} onClick={(ev) => {ev.preventDefault(); startTransition(() => {setView({ route: 'archives' });});}}>過去問</a>をお楽しみください。</p>
+    <p><a href={import.meta.env.BASE_URL}>トップページ</a>に戻る。</p>
+  </main>;
 };
 
 export const ArchivePlayer: FC<{ date: string }> = ({ date }) => {

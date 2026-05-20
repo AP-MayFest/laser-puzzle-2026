@@ -25,7 +25,7 @@ export interface DailyArchivesResponse {
 const TOKYO_TIME_ZONE = 'Asia/Tokyo';
 
 // Server-only daily puzzle definitions. Do not import this module from client entry points.
-const DAILY_PROBLEMS: readonly Problem[] = [
+export const DAILY_PROBLEMS: readonly Problem[] = [
     {
         date: '2026-05-01',
         problemCode: '5x5-4bRS5aGS2fSS4aRE1gNE2eNW1fSE1bGW8bRE1fPE1eNW7fPS7bGN-c0e1',
@@ -179,4 +179,4 @@ export function getTokyoDateString(now: Date = new Date()): string {
 }
 
 
-export const Compilation: Problem[] = [];
+export const Compilation: Problem[] = [...DAILY_PROBLEMS];

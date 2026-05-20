@@ -48,7 +48,7 @@ export const ProblemInfoDialog: FC<{
 
     { problem.realBoard && <p>この問題は実物のボードでもプレイできます．<br/>ぜひ<a href='https://ap-mayfest.com/2026/#light-panel' target='_blank'>工学博覧会の光班</a>へお越しください．</p> }
     
-    { today || <p><a href={import.meta.env.BASE_URL + '/daily.html'} onClick={(ev) => {ev.preventDefault(); startTransition(() => {setView({ route: 'today' });});}}>今日の問題はこちら</a></p> }
+    {/* { today || <p><a href={import.meta.env.BASE_URL + '/daily.html'} onClick={(ev) => {ev.preventDefault(); startTransition(() => {setView({ route: 'today' });});}}>今日の問題はこちら</a></p> } */}
 
     <RecordDisplay date={problem.date} today={today} />
 
